@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aditya.travelapp.Api.ApiClient;
+import com.aditya.travelapp.Api.ApiInterface;
+import com.aditya.travelapp.Api.users;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -22,11 +25,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.aditya.travelapp.registerActivity.apiInterface;
+
 public class LoginActivity extends AppCompatActivity {
     TextView Lemail,Lpass;
     Button btnlogin;
     ProgressDialog progressDialog;
-    private FirebaseAuth mAuth;  //Declare firebase
+    public static ApiInterface apiInterface;
+//    private FirebaseAuth mAuth;  //Declare firebase
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,37 +48,64 @@ public class LoginActivity extends AppCompatActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
+        apiInterface= ApiClient.getApiClient().create(ApiInterface.class);
+        init();
+
+    }
+    private void init() {
         Lemail=findViewById(R.id.loginemail);
         Lpass=findViewById(R.id.loginpass);
         btnlogin=findViewById(R.id.btnlogin);
         progressDialog=new ProgressDialog(this);
-        mAuth = FirebaseAuth.getInstance(); //initialize firebase at instance
+//        mAuth = FirebaseAuth.getInstance(); //initialize firebase at instance
 
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email=Lemail.getText().toString().trim();
-                String pass=Lpass.getText().toString().trim();
-
-                if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                    Lemail.setError("Invalid Email");
-                    Lemail.setFocusable(true);
-                }else if(Lpass.length() <= 6){
-                    Lpass.setError("Password length should greater than 7");
-                    Lpass.setFocusable(true);
-                }else {
-//                    userlogin(email,pass);
-                    progressDialog.setTitle("Logging process");
-                    progressDialog.setMessage("Please wait until authentication success");
-                    progressDialog.setCanceledOnTouchOutside(false);
-                    progressDialog.show();
-                    Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                }
+                login();
             }
         });
 
+    }
+    private void login() {
+        String email=Lemail.getText().toString().trim();
+        String pass=Lpass.getText().toString().trim();
 
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            Lemail.setError("Invalid Email");
+            Lemail.setFocusable(true);
+        }else if(Lpass.length() <= 6){
+            Lpass.setError("Password length should greater than 7");
+            Lpass.setFocusable(true);
+        }else {
+//                    userlogin(email,pass);
+            progressDialog.setTitle("Logging process");
+            progressDialog.setMessage("Please wait until authentication success");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+            Call<users> call=apiInterface.performEmailLogin(email,pass);
+            call.enqueue(new Callback<users>() {
+                @Override
+                public void onResponse(Call<users> call, Response<users> response) {
+                    if(response.body().getResponse().equals("ok")){
+                        String uname=response.body().getUsername();
+                        Toast.makeText(LoginActivity.this, "Welcome "+ uname  , Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }else if(response.body().getResponse().equals("No Account register")){
+                        Toast.makeText(LoginActivity.this, "No Account register", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }else{
+                        Toast.makeText(LoginActivity.this, "Please try again..", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                }
 
+                @Override
+                public void onFailure(Call<users> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
 //    private void userlogin(String email, String pass) {

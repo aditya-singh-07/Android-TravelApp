@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aditya.travelapp.Api.ApiClient;
+import com.aditya.travelapp.Api.ApiInterface;
+import com.aditya.travelapp.Api.users;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -24,16 +28,23 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class registerActivity extends AppCompatActivity {
-    TextView Remail,Rpass;
+    TextView Remail,Rusername,Rpass;
     Button btnregister;
     ProgressDialog progressDialog;
-    private FirebaseAuth mAuth;  //Declare firebase
-    @SuppressLint("RestrictedApi")
+    public static ApiInterface apiInterface;
+
+
+//    private FirebaseAuth mAuth;  //Declare firebase
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
 //        ActionBar actionBar=getSupportActionBar();
 //        actionBar.setTitle("Register");
 //        actionBar.setDisplayShowHomeEnabled(true);
@@ -42,34 +53,71 @@ public class registerActivity extends AppCompatActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
+        progressDialog=new ProgressDialog(this);
+//        mAuth = FirebaseAuth.getInstance(); //initialize firebase at instance
+        apiInterface= ApiClient.getApiClient().create(ApiInterface.class);
+        init();
+    }
+
+    private void init() {
         Remail=findViewById(R.id.registeremail);
+        Rusername=findViewById(R.id.registerusername);
         Rpass=findViewById(R.id.registerpass);
         btnregister=findViewById(R.id.btnregister);
-        progressDialog=new ProgressDialog(this);
-        mAuth = FirebaseAuth.getInstance(); //initialize firebase at instance
         btnregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email=Remail.getText().toString().trim();
-                String pass=Rpass.getText().toString().trim();
+                register();
 
-                if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                    Remail.setError("Invalid Email");
-                    Remail.setFocusable(true);
-                }else if(Rpass.length() <= 6){
-                    Rpass.setError("Password length should greater than 7");
-                    Rpass.setFocusable(true);
-                }else {
-//                    userregister(email,pass);
-                    progressDialog.setTitle("Registering user...");
-                    progressDialog.setMessage("Please wait until Registration success");
-                    progressDialog.setCanceledOnTouchOutside(false);
-                    progressDialog.show();
-                    Toast.makeText(registerActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                }
             }
         });
+
     }
+
+    private void register() {
+        String email=Remail.getText().toString().trim();
+        String pass=Rpass.getText().toString().trim();
+        String username=Rusername.getText().toString().trim();
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            Remail.setError("Invalid Email");
+            Remail.setFocusable(true);
+        }else if(TextUtils.isEmpty("username")){
+            Rusername.setError("Username should not be empty");
+        }else if(Rpass.length() <= 6){
+            Rpass.setError("Password length should greater than 7");
+            Rpass.setFocusable(true);
+        }else {
+//                    userregister(email,pass);
+            progressDialog.setTitle("Registering user...");
+            progressDialog.setMessage("Please wait until Registration success");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+            Call<users> call=apiInterface.performEmailRegistration(username,email,pass);
+            call.enqueue(new Callback<users>() {
+                @Override
+                public void onResponse(Call<users> call, Response<users> response) {
+                    if(response.body().getResponse().equals("ok")){
+                        Toast.makeText(registerActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }else if(response.body().getResponse().equals("failed")){
+                        Toast.makeText(registerActivity.this, "Registration failed..try again", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }else{
+                        Toast.makeText(registerActivity.this, "Account already created", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                }
+
+
+                @Override
+                public void onFailure(Call<users> call, Throwable t) {
+
+                }
+            });
+        }
+    }
+
 
 //    private void userregister(String email, String pass) {
 //        progressDialog.show();
