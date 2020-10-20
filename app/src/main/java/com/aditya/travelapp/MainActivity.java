@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.aditya.travelapp.adapter.TravelAdapter;
 import com.aditya.travelapp.models.TravelModel;
+import com.aditya.travelapp.session.SessionManage;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private List<TravelModel> travellist;
     private TravelAdapter traveladapter;
     private RecyclerView recyclerview;
+    SessionManage sessionManage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerview.setAdapter(traveladapter);
         traveladapter.notifyDataSetChanged();
         autoScroll();
+        sessionManage=new SessionManage(this);
 
 
         btnlogin.setOnClickListener(new View.OnClickListener() {
@@ -94,5 +97,19 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
         Animatoo.animateSlideLeft(MainActivity.this);
         finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(sessionManage.islogin()){
+            Intent i=new Intent(MainActivity.this,DashBoardActivity.class);
+            startActivity(i);
+            finish();
+            Animatoo.animateSlideLeft(this);
+        }else{
+
+        }
+
     }
 }

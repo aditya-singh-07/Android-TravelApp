@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.aditya.travelapp.Api.ApiClient;
 import com.aditya.travelapp.Api.ApiInterface;
 import com.aditya.travelapp.Api.users;
+import com.aditya.travelapp.session.SessionManage;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,8 +38,9 @@ import retrofit2.Response;
 public class registerActivity extends AppCompatActivity {
     TextView Remail,Rusername,Rpass;
     Button btnregister;
-//    ProgressDialog progressDialog;
     ImageView dialog;
+//    ProgressDialog progressDialog;
+    SessionManage sessionManage;
     public static ApiInterface apiInterface;
 
 
@@ -59,6 +61,7 @@ public class registerActivity extends AppCompatActivity {
 //        progressDialog=new ProgressDialog(this);
 //        mAuth = FirebaseAuth.getInstance(); //initialize firebase at instance
         apiInterface= ApiClient.getApiClient().create(ApiInterface.class);
+        sessionManage=new SessionManage(this);
         init();
     }
 
@@ -105,6 +108,10 @@ public class registerActivity extends AppCompatActivity {
                 public void onResponse(Call<users> call, Response<users> response) {
                     if(response.body().getResponse().equals("ok")){
                         Toast.makeText(registerActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
+                        Intent i=new Intent(registerActivity.this,LoginActivity.class);
+                        startActivity(i);
+                        finish();
+                        Animatoo.animateFade(registerActivity.this);
                         dialog.setVisibility(View.GONE);
 //                        progressDialog.dismiss();
                     }else if(response.body().getResponse().equals("failed")){

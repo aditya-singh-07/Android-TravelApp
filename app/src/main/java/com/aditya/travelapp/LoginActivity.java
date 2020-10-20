@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.aditya.travelapp.Api.ApiClient;
 import com.aditya.travelapp.Api.ApiInterface;
 import com.aditya.travelapp.Api.users;
+import com.aditya.travelapp.session.SessionManage;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,8 +38,10 @@ import static com.aditya.travelapp.registerActivity.apiInterface;
 public class LoginActivity extends AppCompatActivity {
     TextView Lemail,Lpass;
     Button btnlogin;
-//    ProgressDialog progressDialog;
     ImageView dialog;
+    SessionManage sessionManage;
+//    ProgressDialog progressDialog;
+
     public static ApiInterface apiInterface;
 //    private FirebaseAuth mAuth;  //Declare firebase
     @Override
@@ -53,7 +56,9 @@ public class LoginActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
         apiInterface= ApiClient.getApiClient().create(ApiInterface.class);
+        sessionManage=new SessionManage(this);
         init();
+
 
     }
     private void init() {
@@ -69,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnlogin.setEnabled(false);
                 login();
             }
         });
@@ -98,9 +104,17 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<users> call, Response<users> response) {
                     if(response.body().getResponse().equals("ok")){
+                        btnlogin.setEnabled(true);
+                        String uid=response.body().getUserid();
                         String uname=response.body().getUsername();
-                        Toast.makeText(LoginActivity.this, "Welcome "+ uname  , Toast.LENGTH_SHORT).show();
+                        sessionManage.createsession(uid);
                         dialog.setVisibility(View.GONE);
+                        Toast.makeText(LoginActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
+                        Intent i=new Intent(LoginActivity.this,DashBoardActivity.class);
+                        startActivity(i);
+                        Animatoo.animateSlideLeft(LoginActivity.this);
+                        finish();
+
 //                        progressDialog.dismiss();
                     }else if(response.body().getResponse().equals("No Account register")){
                         Toast.makeText(LoginActivity.this, "No Account register", Toast.LENGTH_SHORT).show();

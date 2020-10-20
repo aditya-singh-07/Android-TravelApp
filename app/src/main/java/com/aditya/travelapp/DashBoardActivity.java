@@ -10,8 +10,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -23,6 +27,8 @@ import com.aditya.travelapp.fragment.Discover;
 import com.aditya.travelapp.fragment.Feeds;
 import com.aditya.travelapp.fragment.Home;
 import com.aditya.travelapp.fragment.Settings;
+import com.aditya.travelapp.session.SessionManage;
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,6 +42,9 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    SessionManage sessionManage;
+    Context context;
+    Boolean exit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +57,18 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         navigationView = findViewById(R.id.navdraw);
         toolbar = findViewById(R.id.toolbar);
         ActionBar action = getSupportActionBar();
+
+        ////////////////Session management instance created////////////////
+        sessionManage=new SessionManage(this);
+        ////////////////Session management instance created////////////////
+
         // setSupportActionBar(toolbar);
         /////////////////- Actionbar set listener -///////////////////
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         ///////////////////- Actionbar set listener -///////////////////
+
         ////////////// drawale open /////////////////////////////////////
         navigationView.bringToFront();
         /////////////// drawale open ///////////////////////////////////
@@ -61,6 +76,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         //ActionBar action=getSupportActionBar();
         //action.setDisplayShowHomeEnabled(true);
         //action.setTitle("Travel");
+
         ///////////////Bottom navigation //////////////////////////////////////////
         bottomNavigationView = findViewById(R.id.bottomnav);
         bottomNavigationView.setOnNavigationItemSelectedListener(navigation);
@@ -68,6 +84,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         ///////////////Bottom navigation /////////////////////////////////////////
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR); // status bar visibility transparent
+
         ////////////// Repace bydefault framelayout with home ////////////////////
         frameLayout = findViewById(R.id.framelayout);
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new Home()).commit();
@@ -78,6 +95,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment = null;
+
             switch (item.getItemId()) {
                 case R.id.home:
                     Toast.makeText(DashBoardActivity.this, "Home selected", Toast.LENGTH_SHORT).show();
@@ -128,21 +146,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
 //        }
 //    }
 
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
 
-            super.onBackPressed();
-        }
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
     //////////////  navigation drawer on item select //////////////////
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -151,11 +155,69 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
                 Toast.makeText(DashBoardActivity.this, "Home selected", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(DashBoardActivity.this,LoginActivity.class));
                 break;
-            case R.id.discover:
+            case R.id.logout:
+                Toast.makeText(DashBoardActivity.this, "Logout success", Toast.LENGTH_SHORT).show();
+                logout();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
     //////////////  navigation drawer on item select //////////////////
+
+    private void logout() {
+        sessionManage.editor.clear();
+        sessionManage.editor.commit();
+        Intent i=new Intent(DashBoardActivity.this,MainActivity.class);
+        startActivity(i);
+        finish();
+        Animatoo.animateFade(this);
+    }
+
+
+    @Override
+    protected void onStart() {
+        Menu menuNav = navigationView.getMenu();
+        MenuItem logoutItem = menuNav.findItem(R.id.logout);
+        if(!sessionManage.islogin()){
+            sessionManage.editor.clear();
+            sessionManage.editor.commit();
+            logoutItem.setVisible(false);
+            Animatoo.animateSwipeRight(this);
+        }else{
+            logoutItem.setVisible(true);
+        }
+        super.onStart();
+    }
+    
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }else if(!sessionManage.islogin()){
+            Intent i=new Intent(DashBoardActivity.this,MainActivity.class);
+            startActivity(i);
+            Animatoo.animateSwipeRight(this);
+        }else{
+
+            if (exit) {
+                moveTaskToBack(true);
+                finish(); // finish activity
+            } else {
+                Toast.makeText(this, "Press Back again to Exit.",
+                        Toast.LENGTH_SHORT).show();
+                exit = true;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        exit = false;
+                    }
+                }, 3 * 1000);
+            }
+
+        }
+
+    }
+
+
 }

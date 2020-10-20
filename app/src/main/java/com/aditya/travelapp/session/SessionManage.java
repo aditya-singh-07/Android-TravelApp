@@ -9,7 +9,7 @@ public class SessionManage {
     SharedPreferences sharedPreferences;
     public SharedPreferences.Editor editor;
     public Context context;
-    public int PRIVATE_MODE=0;
+    int PRIVATE_MODE=0;
     public static final String PREF_NAME="LOGIN";
     public static final String LOGIN="IS_LOGIN";
     public static final String USER_ID="USER_ID";
