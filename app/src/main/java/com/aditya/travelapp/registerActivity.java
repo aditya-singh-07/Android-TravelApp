@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.aditya.travelapp.Api.ApiClient;
 import com.aditya.travelapp.Api.ApiInterface;
 import com.aditya.travelapp.Api.users;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -35,7 +37,8 @@ import retrofit2.Response;
 public class registerActivity extends AppCompatActivity {
     TextView Remail,Rusername,Rpass;
     Button btnregister;
-    ProgressDialog progressDialog;
+//    ProgressDialog progressDialog;
+    ImageView dialog;
     public static ApiInterface apiInterface;
 
 
@@ -53,7 +56,7 @@ public class registerActivity extends AppCompatActivity {
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
-        progressDialog=new ProgressDialog(this);
+//        progressDialog=new ProgressDialog(this);
 //        mAuth = FirebaseAuth.getInstance(); //initialize firebase at instance
         apiInterface= ApiClient.getApiClient().create(ApiInterface.class);
         init();
@@ -64,6 +67,8 @@ public class registerActivity extends AppCompatActivity {
         Rusername=findViewById(R.id.registerusername);
         Rpass=findViewById(R.id.registerpass);
         btnregister=findViewById(R.id.btnregister);
+        dialog=(ImageView) findViewById(R.id.loader);
+        Glide.with(this).load(R.drawable.loader).into(dialog);
         btnregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,24 +93,28 @@ public class registerActivity extends AppCompatActivity {
             Rpass.setError("Password length should greater than 7");
             Rpass.setFocusable(true);
         }else {
+            dialog.setVisibility(View.VISIBLE);
 //                    userregister(email,pass);
-            progressDialog.setTitle("Registering user...");
-            progressDialog.setMessage("Please wait until Registration success");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
+//            progressDialog.setTitle("Registering user...");
+//            progressDialog.setMessage("Please wait until Registration success");
+//            progressDialog.setCanceledOnTouchOutside(false);
+//            progressDialog.show();
             Call<users> call=apiInterface.performEmailRegistration(username,email,pass);
             call.enqueue(new Callback<users>() {
                 @Override
                 public void onResponse(Call<users> call, Response<users> response) {
                     if(response.body().getResponse().equals("ok")){
                         Toast.makeText(registerActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
+                        dialog.setVisibility(View.GONE);
+//                        progressDialog.dismiss();
                     }else if(response.body().getResponse().equals("failed")){
                         Toast.makeText(registerActivity.this, "Registration failed..try again", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
+                        dialog.setVisibility(View.GONE);
+//                        progressDialog.dismiss();
                     }else{
                         Toast.makeText(registerActivity.this, "Account already created", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
+                        dialog.setVisibility(View.GONE);
+//                        progressDialog.dismiss();
                     }
                 }
 

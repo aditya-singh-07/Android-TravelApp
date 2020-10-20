@@ -7,10 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +20,7 @@ import com.aditya.travelapp.Api.ApiClient;
 import com.aditya.travelapp.Api.ApiInterface;
 import com.aditya.travelapp.Api.users;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -34,7 +37,8 @@ import static com.aditya.travelapp.registerActivity.apiInterface;
 public class LoginActivity extends AppCompatActivity {
     TextView Lemail,Lpass;
     Button btnlogin;
-    ProgressDialog progressDialog;
+//    ProgressDialog progressDialog;
+    ImageView dialog;
     public static ApiInterface apiInterface;
 //    private FirebaseAuth mAuth;  //Declare firebase
     @Override
@@ -56,8 +60,11 @@ public class LoginActivity extends AppCompatActivity {
         Lemail=findViewById(R.id.loginemail);
         Lpass=findViewById(R.id.loginpass);
         btnlogin=findViewById(R.id.btnlogin);
-        progressDialog=new ProgressDialog(this);
+//        progressDialog=new ProgressDialog(this);
 //        mAuth = FirebaseAuth.getInstance(); //initialize firebase at instance
+        dialog=(ImageView) findViewById(R.id.loader);
+        Glide.with(this).load(R.drawable.loader).into(dialog);
+
 
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,10 +86,13 @@ public class LoginActivity extends AppCompatActivity {
             Lpass.setFocusable(true);
         }else {
 //                    userlogin(email,pass);
-            progressDialog.setTitle("Logging process");
-            progressDialog.setMessage("Please wait until authentication success");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
+            /////////////// Custom loader //////////////////////
+            dialog.setVisibility(View.VISIBLE);
+//            progressDialog.setTitle("Logging process");
+//            progressDialog.setMessage("Please wait until authentication success");
+//            progressDialog.setCanceledOnTouchOutside(false);
+//            progressDialog.show();
+            /////////////// Custom loader //////////////////////
             Call<users> call=apiInterface.performEmailLogin(email,pass);
             call.enqueue(new Callback<users>() {
                 @Override
@@ -90,13 +100,16 @@ public class LoginActivity extends AppCompatActivity {
                     if(response.body().getResponse().equals("ok")){
                         String uname=response.body().getUsername();
                         Toast.makeText(LoginActivity.this, "Welcome "+ uname  , Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
+                        dialog.setVisibility(View.GONE);
+//                        progressDialog.dismiss();
                     }else if(response.body().getResponse().equals("No Account register")){
                         Toast.makeText(LoginActivity.this, "No Account register", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
+                        dialog.setVisibility(View.GONE);
+//                        progressDialog.dismiss();
                     }else{
                         Toast.makeText(LoginActivity.this, "Please try again..", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
+                        dialog.setVisibility(View.GONE);
+//                        progressDialog.dismiss();
                     }
                 }
 
