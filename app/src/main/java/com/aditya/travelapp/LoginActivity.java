@@ -11,6 +11,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -75,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 btnlogin.setEnabled(false);
+                hideKeybaord(v);  // hide keyboard
                 login();
             }
         });
@@ -166,6 +168,10 @@ public class LoginActivity extends AppCompatActivity {
 //        });
 //    }
 
+    private void hideKeybaord(View v) {
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(),0);
+    }
 
     @Override
     public boolean onSupportNavigateUp() {

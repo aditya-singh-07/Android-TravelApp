@@ -40,12 +40,15 @@
         android:layout_marginRight="8dp"
         android:minHeight="?attr/actionBarSize"
         android:paddingStart="5dp"
+        android:elevation="12dp"
         android:theme="?attr/actionBarTheme"
+        app:menu="@menu/toolbar_search_menu"
         app:layout_constraintBottom_toTopOf="@+id/framelayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_baseline_menu_24" />
+
 
     <TextView
         android:id="@+id/profile"

@@ -16,6 +16,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -57,6 +58,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         navigationView = findViewById(R.id.navdraw);
         toolbar = findViewById(R.id.toolbar);
         ActionBar action = getSupportActionBar();
+
 
         ////////////////Session management instance created////////////////
         sessionManage=new SessionManage(this);
@@ -164,6 +166,18 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
     //////////////  navigation drawer on item select //////////////////
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_search_menu, menu);
+        return true;
+    }
+
+
+
+
+
 
     private void logout() {
         sessionManage.editor.clear();
