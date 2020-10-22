@@ -167,16 +167,14 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     }
     //////////////  navigation drawer on item select //////////////////
 
+    ////////////// toolbar menu //////////////////////////////////
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_search_menu, menu);
         return true;
     }
-
-
-
-
+    ////////////// toolbar menu //////////////////////////////////
 
 
     private void logout() {
