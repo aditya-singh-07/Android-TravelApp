@@ -2,12 +2,12 @@ package com.aditya.travelapp.models;
 
 public class DiscoverModel {
     private int place_image;
-    private String place_name,location,available,offer,rating,price;
+    private String place_name,location,available,offer,rating,price,category;
 
     public DiscoverModel() {
     }
 
-    public DiscoverModel(int place_image, String place_name, String location, String available, String offer, String rating, String price) {
+    public DiscoverModel(int place_image, String place_name, String location, String available, String offer, String rating, String price, String category) {
         this.place_image = place_image;
         this.place_name = place_name;
         this.location = location;
@@ -15,6 +15,7 @@ public class DiscoverModel {
         this.offer = offer;
         this.rating = rating;
         this.price = price;
+        this.category = category;
     }
 
     public int getPlace_image() {
@@ -71,5 +72,13 @@ public class DiscoverModel {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

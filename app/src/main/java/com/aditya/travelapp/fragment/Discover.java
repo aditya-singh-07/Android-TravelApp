@@ -53,14 +53,14 @@ public class Discover extends Fragment {
         discoverrecycler.setHasFixedSize(true);
 
         discoverlist=new ArrayList<DiscoverModel>();
-        discoverlist.add(new DiscoverModel(R.drawable.image1,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000"));
-        discoverlist.add(new DiscoverModel(R.drawable.image2,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000"));
-        discoverlist.add(new DiscoverModel(R.drawable.image3,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000"));
-        discoverlist.add(new DiscoverModel(R.drawable.image4,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000"));
-        discoverlist.add(new DiscoverModel(R.drawable.image1,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000"));
-        discoverlist.add(new DiscoverModel(R.drawable.image2,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000"));
-        discoverlist.add(new DiscoverModel(R.drawable.image3,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000"));
-        discoverlist.add(new DiscoverModel(R.drawable.image4,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000"));
+        discoverlist.add(new DiscoverModel(R.drawable.image1,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000","Adventure"));
+        discoverlist.add(new DiscoverModel(R.drawable.image2,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000","Adventure"));
+        discoverlist.add(new DiscoverModel(R.drawable.image3,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000","Adventure"));
+        discoverlist.add(new DiscoverModel(R.drawable.image4,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000","Adventure"));
+        discoverlist.add(new DiscoverModel(R.drawable.image1,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000","Adventure"));
+        discoverlist.add(new DiscoverModel(R.drawable.image2,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000","Adventure"));
+        discoverlist.add(new DiscoverModel(R.drawable.image3,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000","Adventure"));
+        discoverlist.add(new DiscoverModel(R.drawable.image4,"Washington dc","Hydrabad, 295 km from Hingoli","6 Nov-8 Nov,Fri- Sun","60% OFF BOOK Now","4.6","2000","Adventure"));
         discoverAdapter=new DiscoverAdapter(discoverlist,getContext());
         discoverrecycler.setAdapter(discoverAdapter);
         discoverAdapter.notifyDataSetChanged();

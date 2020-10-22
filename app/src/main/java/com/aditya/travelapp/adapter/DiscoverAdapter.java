@@ -42,6 +42,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Discov
         holder.offer.setText(model.getOffer());
         holder.rating.setText(model.getRating());
         holder.price.setText(model.getPrice());
+        holder.category.setText(model.getCategory());
 
     }
 
@@ -52,7 +53,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Discov
 
     public class Discoverviewholder extends RecyclerView.ViewHolder {
         private ImageView placeimg;
-        private TextView placename,location,available,offer,rating,price;
+        private TextView placename,location,available,offer,rating,price,category;
 
         public Discoverviewholder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +64,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Discov
             offer=itemView.findViewById(R.id.offer);
             rating=itemView.findViewById(R.id.rating);
             price=itemView.findViewById(R.id.price);
+            category=itemView.findViewById(R.id.category);
 
 
 
