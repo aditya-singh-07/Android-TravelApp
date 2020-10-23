@@ -40,7 +40,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="283dp"
-            android:letterSpacing="0.1"
+            android:fontFamily="@font/baloo"
             android:text="Trends"
             android:textSize="22dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,6 +63,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="28dp"
+            android:fontFamily="@font/baloo"
             android:text="Most visited"
             android:textSize="22dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,6 +78,29 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mostview" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="155dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="283dp"
+            android:fontFamily="@font/baloo"
+            android:text="New Arrival 's"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerviewmostvisit" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerviewnewarrival"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

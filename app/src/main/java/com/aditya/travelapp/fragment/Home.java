@@ -20,10 +20,12 @@ import com.aditya.travelapp.R;
 import com.aditya.travelapp.adapter.BannerAdapter;
 import com.aditya.travelapp.adapter.CategoryAdapter;
 import com.aditya.travelapp.adapter.MostvisitAdapter;
+import com.aditya.travelapp.adapter.NewarrivalAdapter;
 import com.aditya.travelapp.adapter.TrendsAdapter;
 import com.aditya.travelapp.models.BannerModel;
 import com.aditya.travelapp.models.CategoryModel;
 import com.aditya.travelapp.models.MostvisitModel;
+import com.aditya.travelapp.models.NewarrivalModel;
 import com.aditya.travelapp.models.TravelModel;
 import com.aditya.travelapp.models.TrendsModel;
 import com.aditya.travelapp.session.SessionManage;
@@ -33,16 +35,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Home extends Fragment {
-    private RecyclerView recyclerView,recyclerViewbanner,recycviewtrends,recyclerviewmostvisit;
+    private RecyclerView recyclerView,recyclerViewbanner,recycviewtrends,recyclerviewmostvisit,recyclerviewnewarrival;
     private List<CategoryModel> categorylist;
     private  List<BannerModel> bannerlist;
     private  List<TrendsModel> trendslist;
     private List<MostvisitModel> mostvisitList;
+    private  List<NewarrivalModel> newarrivalList;
 
     private CategoryAdapter categoryAdapter;
     private BannerAdapter bannerAdapter;
     private TrendsAdapter trendsAdapter;
     private MostvisitAdapter mostvisitAdapter;
+    private NewarrivalAdapter newarrivalAdapter;
     private SessionManage sessionManage;
 
     public Home() {
@@ -66,11 +70,30 @@ public class Home extends Fragment {
         recyclerViewbanner=(RecyclerView) view.findViewById(R.id.recyclerviewbanner);
         recycviewtrends=view.findViewById(R.id.recyclerviewtrends);
         recyclerviewmostvisit=view.findViewById(R.id.recyclerviewmostvisit);
+        recyclerviewnewarrival=view.findViewById(R.id.recyclerviewnewarrival);
         init();
         bannerinit();
         trendsinit();
         mostviewinit();
+        newarrivalinit();
         return  view;
+    }
+
+    private void newarrivalinit() {
+        LinearLayoutManager manager=new LinearLayoutManager(getContext());
+        manager.setOrientation(RecyclerView.HORIZONTAL);
+        recyclerviewnewarrival.setLayoutManager(manager);
+        recyclerviewnewarrival.setHasFixedSize(true);
+
+        newarrivalList=new ArrayList<>();
+        newarrivalList.add(new NewarrivalModel(R.drawable.image1,"Yosemite"));
+        newarrivalList.add(new NewarrivalModel(R.drawable.image1,"Montana"));
+        newarrivalList.add(new NewarrivalModel(R.drawable.image4,"Grand Canyon"));
+        newarrivalList.add(new NewarrivalModel(R.drawable.image2,"New Orleans"));
+        newarrivalList.add(new NewarrivalModel(R.drawable.image3,"Laguna Califonia"));
+        newarrivalAdapter=new NewarrivalAdapter(newarrivalList,getContext());
+        recyclerviewnewarrival.setAdapter(newarrivalAdapter);
+        newarrivalAdapter.notifyDataSetChanged();
     }
 
     private void mostviewinit() {
