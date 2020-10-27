@@ -12,13 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aditya.travelapp.R;
 import com.aditya.travelapp.models.MostvisitModel;
+import com.aditya.travelapp.models.TrendsModel;
 import com.bumptech.glide.Glide;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.List;
 
 public class MostvisitAdapter extends RecyclerView.Adapter<MostvisitAdapter.Mostvisitviewholder> {
     private List<MostvisitModel> mostvisitModelList;
     private Context context;
+    public boolean shimmer=true;
 
     public MostvisitAdapter(List<MostvisitModel> mostvisitModelList, Context context) {
         this.mostvisitModelList = mostvisitModelList;
@@ -34,25 +37,39 @@ public class MostvisitAdapter extends RecyclerView.Adapter<MostvisitAdapter.Most
 
     @Override
     public void onBindViewHolder(@NonNull Mostvisitviewholder holder, int position) {
-        MostvisitModel mostvisitModel=mostvisitModelList.get(position);
-        Glide.with(context).load(mostvisitModel.getPlaceimage()).into(holder.placeimage);
-        holder.placename.setText(mostvisitModel.getPlacename());
+        if(shimmer){
+            holder.shimmerFrameLayout.startShimmer();
+        }else{
+            holder.shimmerFrameLayout.stopShimmer();
+            holder.shimmerFrameLayout.setShimmer(null);
+            MostvisitModel mostvisitModel=mostvisitModelList.get(position);
+            holder.placename.setBackground(null);
+            holder.placename.setText(mostvisitModel.getPlacename());
+            holder.placeimage.setBackground(null);
+            Glide.with(context).load(mostvisitModel.getPlaceimage()).into(holder.placeimage);
+
+        }
+
+
+
     }
 
     @Override
     public int getItemCount() {
-        return mostvisitModelList.size();
+        int shimmercount=8;
+        return shimmer? shimmercount:mostvisitModelList.size();
     }
 
     public class Mostvisitviewholder extends RecyclerView.ViewHolder {
         private ImageView placeimage;
         private TextView placename;
+        ShimmerFrameLayout shimmerFrameLayout;
 
         public Mostvisitviewholder(@NonNull View itemView) {
             super(itemView);
             placeimage=itemView.findViewById(R.id.placeimage);
             placename=itemView.findViewById(R.id.placename);
-
+            shimmerFrameLayout=itemView.findViewById(R.id.shimmerlayout);
         }
     }
 }

@@ -25,7 +25,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
-
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerlayout"
+            app:shimmer_shape="linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="#cfcfcf">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="121dp"
@@ -36,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="121dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/image1" />
+                app:srcCompat="@drawable/shimmering" />
 
         </LinearLayout>
 
@@ -53,7 +58,7 @@
                 android:layout_marginEnd="1dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
-                android:text="Washington dc, Island"
+                android:text=""
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -61,7 +66,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </com.facebook.shimmer.ShimmerFrameLayout>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

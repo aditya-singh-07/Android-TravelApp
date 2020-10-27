@@ -2,6 +2,7 @@ package com.aditya.travelapp;
 
 import androidx.annotation.NonNull;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aditya.travelapp.Api.ApiClient;
+import com.aditya.travelapp.Api.ApiInterface;
 import com.aditya.travelapp.fragment.Discover;
 import com.aditya.travelapp.fragment.Feeds;
 import com.aditya.travelapp.fragment.Home;
@@ -47,6 +50,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     Context context;
     Boolean exit = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -58,6 +62,13 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         navigationView = findViewById(R.id.navdraw);
         toolbar = findViewById(R.id.toolbar);
         ActionBar action = getSupportActionBar();
+
+        if(savedInstanceState ==null){
+            new Home();
+            new Discover();
+            new Feeds();
+            new Settings();
+        }
 
 
         ////////////////Session management instance created////////////////
@@ -189,6 +200,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     protected void onStart() {
+        super.onStart();
         Menu menuNav = navigationView.getMenu();
         MenuItem logoutItem = menuNav.findItem(R.id.logout);
         if(!sessionManage.islogin()){
@@ -199,18 +211,20 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         }else{
             logoutItem.setVisible(true);
         }
-        super.onStart();
+
     }
     
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }else if(!sessionManage.islogin()){
-            Intent i=new Intent(DashBoardActivity.this,MainActivity.class);
-            startActivity(i);
-            Animatoo.animateSwipeRight(this);
-        }else{
+        }
+//        else if(!sessionManage.islogin()){
+//            Intent i=new Intent(DashBoardActivity.this,MainActivity.class);
+//            startActivity(i);
+//            Animatoo.animateSwipeRight(this);
+//        }
+        else{
 
             if (exit) {
                 moveTaskToBack(true);
@@ -230,6 +244,14 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         }
 
     }
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
 
+    }
 
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
 }

@@ -3,17 +3,24 @@ package com.aditya.travelapp.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 
+import com.aditya.travelapp.Api.ApiClient;
+import com.aditya.travelapp.Api.ApiInterface;
+import com.aditya.travelapp.Api.users;
 import com.aditya.travelapp.DashBoardActivity;
 import com.aditya.travelapp.MainActivity;
 import com.aditya.travelapp.R;
@@ -34,6 +41,10 @@ import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Home extends Fragment {
     private RecyclerView recyclerView,recyclerViewbanner,recycviewtrends,recyclerviewmostvisit,recyclerviewnewarrival;
     private List<CategoryModel> categorylist;
@@ -48,6 +59,10 @@ public class Home extends Fragment {
     private MostvisitAdapter mostvisitAdapter;
     private NewarrivalAdapter newarrivalAdapter;
     private SessionManage sessionManage;
+    public boolean shimmer=false;
+    ///////// Api interface object ////////////////
+    public static ApiInterface apiInterface;
+    ///////// Api interface object ////////////////
 
     public Home() {
         // Required empty public constructor
@@ -57,12 +72,26 @@ public class Home extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sessionManage=new SessionManage(getContext());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loaddata();
+                trendsAdapter.shimmer=false;
+                trendsAdapter.notifyDataSetChanged();
+                mostvisitAdapter.shimmer=false;
+                mostvisitAdapter.notifyDataSetChanged();
+            }
+        },1000);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ///////// Api interface object initialize ////////////////
+        apiInterface= ApiClient.getApiClient().create(ApiInterface.class);
+        ///////// Api interface object initialize ////////////////
+
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_home, container, false);
         SessionManage session=new SessionManage(getContext());
@@ -95,6 +124,13 @@ public class Home extends Fragment {
         recyclerviewnewarrival.setAdapter(newarrivalAdapter);
         newarrivalAdapter.notifyDataSetChanged();
     }
+   void loaddata(){
+       trendslist.add(new TrendsModel(R.drawable.image1,"Montana"));
+       trendslist.add(new TrendsModel(R.drawable.image2,"New Orleans"));
+       trendslist.add(new TrendsModel(R.drawable.image3,"Laguna Califonia"));
+       trendslist.add(new TrendsModel(R.drawable.image4,"Grand Canyon"));
+       trendslist.add(new TrendsModel(R.drawable.image1,"Yosemite"));
+    }
 
     private void mostviewinit() {
         LinearLayoutManager manager=new LinearLayoutManager(getContext());
@@ -122,14 +158,10 @@ public class Home extends Fragment {
         recycviewtrends.setHasFixedSize(true);
 
         trendslist=new ArrayList<>();
-        trendslist.add(new TrendsModel(R.drawable.image1,"Montana"));
-        trendslist.add(new TrendsModel(R.drawable.image2,"New Orleans"));
-        trendslist.add(new TrendsModel(R.drawable.image3,"Laguna Califonia"));
-        trendslist.add(new TrendsModel(R.drawable.image4,"Grand Canyon"));
-        trendslist.add(new TrendsModel(R.drawable.image1,"Yosemite"));
+
         trendsAdapter=new TrendsAdapter(trendslist,getContext());
         recycviewtrends.setAdapter(trendsAdapter);
-        trendsAdapter.notifyDataSetChanged();
+
     }
     /////////////////// set trends recyclerview /////////////////////////
 
@@ -162,17 +194,32 @@ public class Home extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         categorylist=new ArrayList<CategoryModel>();
-        categorylist.add(new CategoryModel(R.drawable.travel_black,"Adventure travel"));
-        categorylist.add(new CategoryModel(R.drawable.travel_black,"Birth tourism"));
-        categorylist.add(new CategoryModel(R.drawable.travel_black,"camping"));
-        categorylist.add(new CategoryModel(R.drawable.travel_black,"Fashion tourism"));
-        categorylist.add(new CategoryModel(R.drawable.travel_black,"Adventure travel"));
-        categorylist.add(new CategoryModel(R.drawable.travel_black,"Birth tourism"));
-        categorylist.add(new CategoryModel(R.drawable.travel_black,"camping"));
-        categorylist.add(new CategoryModel(R.drawable.travel_black,"Fashion tourism"));
-        categoryAdapter=new CategoryAdapter(categorylist,getContext());
-        recyclerView.setAdapter(categoryAdapter);
-        categoryAdapter.notifyDataSetChanged();
+        Call<users> catcall=apiInterface.getCategorylist();
+        catcall.enqueue(new Callback<users>() {
+            @Override
+            public void onResponse(Call<users> call, Response<users> response) {
+                categorylist=response.body().getCategories();
+                categoryAdapter=new CategoryAdapter(categorylist,getContext());
+                recyclerView.setAdapter(categoryAdapter);
+                categoryAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<users> call, Throwable t) {
+
+            }
+        });
+//        categorylist.add(new CategoryModel(R.drawable.travel_black,"Adventure travel"));
+//        categorylist.add(new CategoryModel(R.drawable.travel_black,"Birth tourism"));
+//        categorylist.add(new CategoryModel(R.drawable.travel_black,"camping"));
+//        categorylist.add(new CategoryModel(R.drawable.travel_black,"Fashion tourism"));
+//        categorylist.add(new CategoryModel(R.drawable.travel_black,"Adventure travel"));
+//        categorylist.add(new CategoryModel(R.drawable.travel_black,"Birth tourism"));
+//        categorylist.add(new CategoryModel(R.drawable.travel_black,"camping"));
+//        categorylist.add(new CategoryModel(R.drawable.travel_black,"Fashion tourism"));
+//        categoryAdapter=new CategoryAdapter(categorylist,getContext());
+//        recyclerView.setAdapter(categoryAdapter);
+//        categoryAdapter.notifyDataSetChanged();
     }
     /////////////////// Category recyclerview /////////////////////////
 
@@ -185,6 +232,7 @@ public class Home extends Fragment {
     }
     @Override
     public void onStart() {
+        init();
         if(!sessionManage.islogin()){
             sessionManage.editor.clear();
             sessionManage.editor.commit();

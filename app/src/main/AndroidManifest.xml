@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.aditya.travelapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ToggleActivity"></activity>
-        <activity android:name=".DashBoardActivity" />
+        <activity android:name=".DashBoardActivity"
+            android:configChanges="orientation |screenSize |keyboardHidden">
+        </activity>
         <activity android:name=".registerActivity"
             android:theme="@style/logintheme"/>
         <activity android:name=".LoginActivity"

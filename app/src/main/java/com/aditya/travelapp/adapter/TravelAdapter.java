@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aditya.travelapp.R;
+import com.aditya.travelapp.models.CategoryModel;
 import com.aditya.travelapp.models.TravelModel;
 import com.bumptech.glide.Glide;
 

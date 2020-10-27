@@ -192,4 +192,10 @@ public class LoginActivity extends AppCompatActivity {
         finish();
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        sessionManage=new SessionManage(this);
+    }
 }
