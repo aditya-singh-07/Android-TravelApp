@@ -1,30 +1,22 @@
 package com.aditya.travelapp.models;
 
 public class DiscoverModel {
-    private int place_image;
-    private String place_name,location,available,offer,rating,price,category;
-
+    private String place_name,place_image,offer,price,rating,location,available,cat_title;
     public DiscoverModel() {
     }
 
-    public DiscoverModel(int place_image, String place_name, String location, String available, String offer, String rating, String price, String category) {
-        this.place_image = place_image;
+    public DiscoverModel( String place_name, String place_image, String offer, String price, String rating, String location, String available, String cat_title) {
         this.place_name = place_name;
+        this.place_image = place_image;
+        this.offer = offer;
+        this.price = price;
+        this.rating = rating;
         this.location = location;
         this.available = available;
-        this.offer = offer;
-        this.rating = rating;
-        this.price = price;
-        this.category = category;
+        this.cat_title = cat_title;
     }
 
-    public int getPlace_image() {
-        return place_image;
-    }
 
-    public void setPlace_image(int place_image) {
-        this.place_image = place_image;
-    }
 
     public String getPlace_name() {
         return place_name;
@@ -32,6 +24,38 @@ public class DiscoverModel {
 
     public void setPlace_name(String place_name) {
         this.place_name = place_name;
+    }
+
+    public String getPlace_image() {
+        return place_image;
+    }
+
+    public void setPlace_image(String place_image) {
+        this.place_image = place_image;
+    }
+
+    public String getOffer() {
+        return offer;
+    }
+
+    public void setOffer(String offer) {
+        this.offer = offer;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
     public String getLocation() {
@@ -50,35 +74,11 @@ public class DiscoverModel {
         this.available = available;
     }
 
-    public String getOffer() {
-        return offer;
+    public String getCat_title() {
+        return cat_title;
     }
 
-    public void setOffer(String offer) {
-        this.offer = offer;
-    }
-
-    public String getRating() {
-        return rating;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCat_title(String cat_title) {
+        this.cat_title = cat_title;
     }
 }

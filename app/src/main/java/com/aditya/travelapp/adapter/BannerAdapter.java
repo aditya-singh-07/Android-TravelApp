@@ -13,6 +13,7 @@ import com.aditya.travelapp.R;
 import com.aditya.travelapp.models.BannerModel;
 import com.aditya.travelapp.models.CategoryModel;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.Bannerview
     @Override
     public void onBindViewHolder(@NonNull BannerAdapter.Bannerviewholder holder, int position) {
         BannerModel model=bannerlist.get(position);
-        Glide.with(context).load(model.getBanner_image()).placeholder(R.drawable.travel_black).into(holder.banner_image);
+        Glide.with(context).load(model.getBanner_image()).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).skipMemoryCache(false).placeholder(R.drawable.travel_black).into(holder.banner_image);
     }
 
     @Override

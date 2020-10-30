@@ -1,20 +1,20 @@
 package com.aditya.travelapp.models;
 
 public class BannerModel {
-    private int banner_image;
+    private String banner_image;
 
     public BannerModel() {
     }
 
-    public BannerModel(int banner_image) {
+    public BannerModel(String banner_image) {
         this.banner_image = banner_image;
     }
 
-    public int getBanner_image() {
+    public String getBanner_image() {
         return banner_image;
     }
 
-    public void setBanner_image(int banner_image) {
+    public void setBanner_image(String banner_image) {
         this.banner_image = banner_image;
     }
 }

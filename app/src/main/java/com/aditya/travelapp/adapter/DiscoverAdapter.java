@@ -13,12 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aditya.travelapp.R;
 import com.aditya.travelapp.models.DiscoverModel;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.List;
 
 public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Discoverviewholder> {
     private List<DiscoverModel> discoverlist;
     private Context context;
+//     public boolean shimmer=true;
 
     public DiscoverAdapter(List<DiscoverModel> discoverlist, Context context) {
         this.discoverlist = discoverlist;
@@ -34,27 +37,63 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Discov
 
     @Override
     public void onBindViewHolder(@NonNull DiscoverAdapter.Discoverviewholder holder, int position) {
-        DiscoverModel model=discoverlist.get(position);
-        Glide.with(context).load(model.getPlace_image()).into(holder.placeimg);
-        holder.placename.setText(model.getPlace_name());
-        holder.location.setText(model.getLocation());
-        holder.available.setText(model.getAvailable());
-        holder.offer.setText(model.getOffer());
-        holder.rating.setText(model.getRating());
-        holder.price.setText(model.getPrice());
-        holder.category.setText(model.getCategory());
+            DiscoverModel model=discoverlist.get(position);
+
+            holder.placename.setText(model.getPlace_name());
+
+            Glide.with(context).load(model.getPlace_image()).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .skipMemoryCache(false).placeholder(R.drawable.travel_black).into(holder.placeimg);
+
+            holder.location.setText(model.getLocation());
+
+            holder.available.setText(model.getAvailable());
+
+            holder.offer.setText(model.getOffer());
+
+            holder.rating.setText(model.getRating());
+
+            holder.price.setText(model.getPrice());
+
+            holder.category.setText(model.getCat_title());
+
+//        if(shimmer){
+//            holder.shimmerFrameLayout.startShimmer();
+//        }else{
+//            holder.shimmerFrameLayout.stopShimmer();
+//            holder.shimmerFrameLayout.setShimmer(null);
+//
+//            DiscoverModel model=discoverlist.get(position);
+//            holder.placename.setBackground(null);
+//            holder.placename.setText(model.getPlace_name());
+//            holder.placeimg.setBackground(null);
+//            Glide.with(context).load(model.getPlace_image()).placeholder(R.drawable.travel_black).into(holder.placeimg);
+//            holder.location.setBackground(null);
+//            holder.location.setText(model.getLocation());
+//            holder.available.setBackground(null);
+//            holder.available.setText(model.getAvailable());
+//            holder.offer.setBackground(null);
+//            holder.offer.setText(model.getOffer());
+//            holder.rating.setBackground(null);
+//            holder.rating.setText(model.getRating());
+//            holder.price.setBackground(null);
+//            holder.price.setText(model.getPrice());
+//            holder.category.setBackground(null);
+//            holder.category.setText(model.getCat_title());
+//        }
+
 
     }
 
     @Override
     public int getItemCount() {
+        int shimmercount=5;
         return discoverlist.size();
     }
 
     public class Discoverviewholder extends RecyclerView.ViewHolder {
         private ImageView placeimg;
         private TextView placename,location,available,offer,rating,price,category;
-
+        ShimmerFrameLayout shimmerFrameLayout;
         public Discoverviewholder(@NonNull View itemView) {
             super(itemView);
             placeimg=itemView.findViewById(R.id.placeimage);
@@ -65,7 +104,6 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Discov
             rating=itemView.findViewById(R.id.rating);
             price=itemView.findViewById(R.id.price);
             category=itemView.findViewById(R.id.category);
-
 
 
         }

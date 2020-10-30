@@ -63,14 +63,6 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         toolbar = findViewById(R.id.toolbar);
         ActionBar action = getSupportActionBar();
 
-        if(savedInstanceState ==null){
-            new Home();
-            new Discover();
-            new Feeds();
-            new Settings();
-        }
-
-
         ////////////////Session management instance created////////////////
         sessionManage=new SessionManage(this);
         ////////////////Session management instance created////////////////
@@ -253,5 +245,6 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+
     }
 }

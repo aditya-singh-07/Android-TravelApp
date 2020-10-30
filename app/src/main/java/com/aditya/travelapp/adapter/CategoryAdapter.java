@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aditya.travelapp.R;
 import com.aditya.travelapp.models.CategoryModel;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(@NonNull CategoryAdapter.Categoryviewholder holder, int position) {
         CategoryModel model=categorylist.get(position);
         holder.category_name.setText(model.getCat_title());
-        Glide.with(context).load(model.getCat_image()).placeholder(R.drawable.travel_black).into(holder.category_image);
+        Glide.with(context).load(model.getCat_image()).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).skipMemoryCache(false).placeholder(R.drawable.travel_black).into(holder.category_image);
 
     }
 

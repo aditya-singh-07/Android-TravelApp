@@ -28,8 +28,7 @@
             android:id="@+id/shimmerlayout"
             app:shimmer_shape="linear"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="#cfcfcf">
+            android:layout_height="wrap_content">
 
 
             <LinearLayout

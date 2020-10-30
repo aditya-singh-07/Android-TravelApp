@@ -3,25 +3,20 @@ package com.aditya.travelapp.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.aditya.travelapp.Api.ApiClient;
 import com.aditya.travelapp.Api.ApiInterface;
 import com.aditya.travelapp.Api.users;
-import com.aditya.travelapp.DashBoardActivity;
 import com.aditya.travelapp.MainActivity;
 import com.aditya.travelapp.R;
 import com.aditya.travelapp.adapter.BannerAdapter;
@@ -29,11 +24,12 @@ import com.aditya.travelapp.adapter.CategoryAdapter;
 import com.aditya.travelapp.adapter.MostvisitAdapter;
 import com.aditya.travelapp.adapter.NewarrivalAdapter;
 import com.aditya.travelapp.adapter.TrendsAdapter;
+import com.aditya.travelapp.connection.Checknetwork;
+import com.aditya.travelapp.database.category;
 import com.aditya.travelapp.models.BannerModel;
 import com.aditya.travelapp.models.CategoryModel;
 import com.aditya.travelapp.models.MostvisitModel;
 import com.aditya.travelapp.models.NewarrivalModel;
-import com.aditya.travelapp.models.TravelModel;
 import com.aditya.travelapp.models.TrendsModel;
 import com.aditya.travelapp.session.SessionManage;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
@@ -59,11 +55,11 @@ public class Home extends Fragment {
     private MostvisitAdapter mostvisitAdapter;
     private NewarrivalAdapter newarrivalAdapter;
     private SessionManage sessionManage;
+    private Checknetwork checknetwork;
     public boolean shimmer=false;
     ///////// Api interface object ////////////////
     public static ApiInterface apiInterface;
     ///////// Api interface object ////////////////
-
     public Home() {
         // Required empty public constructor
     }
@@ -81,7 +77,9 @@ public class Home extends Fragment {
                 mostvisitAdapter.shimmer=false;
                 mostvisitAdapter.notifyDataSetChanged();
             }
-        },1000);
+        },500);
+
+        category.getinstance(getContext());
 
     }
 
@@ -173,14 +171,36 @@ public class Home extends Fragment {
         recyclerViewbanner.setHasFixedSize(true);
 
         bannerlist=new ArrayList<>();
-        bannerlist.add(new BannerModel(R.drawable.image1));
-        bannerlist.add(new BannerModel(R.drawable.image2));
-        bannerlist.add(new BannerModel(R.drawable.travel_black));
-        bannerlist.add(new BannerModel(R.drawable.travel_black));
-        bannerlist.add(new BannerModel(R.drawable.travel_black));
-        bannerAdapter=new BannerAdapter(bannerlist,getContext());
-        recyclerViewbanner.setAdapter(bannerAdapter);
-        bannerAdapter.notifyDataSetChanged();
+        loadbanner();
+
+
+//        bannerlist.add(new BannerModel(R.drawable.image1));
+//        bannerlist.add(new BannerModel(R.drawable.image2));
+//        bannerlist.add(new BannerModel(R.drawable.travel_black));
+//        bannerlist.add(new BannerModel(R.drawable.travel_black));
+//        bannerlist.add(new BannerModel(R.drawable.travel_black));
+//        bannerAdapter=new BannerAdapter(bannerlist,getContext());
+//        recyclerViewbanner.setAdapter(bannerAdapter);
+//        bannerAdapter.notifyDataSetChanged();
+
+    }
+    void loadbanner(){
+        Call<users> bannercall=apiInterface.getBanners();
+        bannercall.enqueue(new Callback<users>() {
+            @Override
+            public void onResponse(Call<users> call, Response<users> response) {
+                bannerlist=response.body().getBanners();
+                Log.i("aditya","rest banner call");
+                bannerAdapter=new BannerAdapter(bannerlist,getContext());
+                recyclerViewbanner.setAdapter(bannerAdapter);
+                bannerAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<users> call, Throwable t) {
+
+            }
+        });
 
     }
     /////////////////// set banner recyclerview /////////////////////////
@@ -192,23 +212,28 @@ public class Home extends Fragment {
         manager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
+        if(checknetwork.getConnectivityStatusString(getContext())){
+            categorylist=new ArrayList<CategoryModel>();
+            Call<users> catcall=apiInterface.getCategorylist();
+            catcall.enqueue(new Callback<users>() {
+                @Override
+                public void onResponse(Call<users> call, Response<users> response) {
+                    categorylist=response.body().getCategories();
+                    categoryAdapter=new CategoryAdapter(categorylist,getContext());
+                    recyclerView.setAdapter(categoryAdapter);
+                    categoryAdapter.notifyDataSetChanged();
+                }
 
-        categorylist=new ArrayList<CategoryModel>();
-        Call<users> catcall=apiInterface.getCategorylist();
-        catcall.enqueue(new Callback<users>() {
-            @Override
-            public void onResponse(Call<users> call, Response<users> response) {
-                categorylist=response.body().getCategories();
-                categoryAdapter=new CategoryAdapter(categorylist,getContext());
-                recyclerView.setAdapter(categoryAdapter);
-                categoryAdapter.notifyDataSetChanged();
-            }
+                @Override
+                public void onFailure(Call<users> call, Throwable t) {
 
-            @Override
-            public void onFailure(Call<users> call, Throwable t) {
+                }
+            });
+        }else{
+            Toast.makeText(getContext(), "No Internet", Toast.LENGTH_SHORT).show();
+        }
 
-            }
-        });
+
 //        categorylist.add(new CategoryModel(R.drawable.travel_black,"Adventure travel"));
 //        categorylist.add(new CategoryModel(R.drawable.travel_black,"Birth tourism"));
 //        categorylist.add(new CategoryModel(R.drawable.travel_black,"camping"));
@@ -221,6 +246,7 @@ public class Home extends Fragment {
 //        recyclerView.setAdapter(categoryAdapter);
 //        categoryAdapter.notifyDataSetChanged();
     }
+
     /////////////////// Category recyclerview /////////////////////////
 
     private void logout() {
