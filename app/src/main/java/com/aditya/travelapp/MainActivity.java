@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
     }
 
     ///////////////// Fetch data from rest api //////////////////
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
             Intent i=new Intent(MainActivity.this,DashBoardActivity.class);
             startActivity(i);
             finish();
-            Animatoo.animateSlideLeft(this);
+            Animatoo.animateSlideRight(this);
         }else{
 
         }

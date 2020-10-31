@@ -157,8 +157,24 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.home:
-                Toast.makeText(DashBoardActivity.this, "Home selected", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(DashBoardActivity.this,LoginActivity.class));
+                getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new Home()).commit();
+//                Toast.makeText(DashBoardActivity.this, "Home selected", Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(DashBoardActivity.this,DashBoardActivity.class));
+                break;
+            case R.id.discover:
+                Toast.makeText(DashBoardActivity.this, "Discover selected", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new Discover()).commit();
+                break;
+            case R.id.feeds:
+                Toast.makeText(DashBoardActivity.this, "Feeds selected", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new Feeds()).commit();
+                break;
+            case R.id.settings:
+                Toast.makeText(DashBoardActivity.this, "Settings selected", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, new Settings()).commit();
+                break;
+            case R.id.account:
+                Toast.makeText(DashBoardActivity.this, "Account Selected", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.logout:
                 Toast.makeText(DashBoardActivity.this, "Logout success", Toast.LENGTH_SHORT).show();

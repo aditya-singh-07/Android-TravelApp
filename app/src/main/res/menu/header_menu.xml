@@ -23,6 +23,13 @@
             android:icon="@drawable/ic_rss_feeds_symbol_in_a_rounded_square"
             />
         <item
+            android:id="@+id/account"
+            android:title="Account"
+            android:enabled="true"
+            android:icon="@drawable/ic_baseline_account_circle_24"
+
+            />
+        <item
             android:id="@+id/settings"
             android:enabled="true"
             android:title="settings"
@@ -31,46 +38,40 @@
     </group>
 
 
-        <item android:title="Profile">
-            <menu>
+<!--        <item android:title="Profile">-->
+<!--            <menu>-->
 
-                <item
-                    android:id="@+id/home1"
-                    android:title="home"
-                    android:enabled="true"
-                    android:icon="@drawable/ic_baseline_home_24"
+<!--                <item-->
+<!--                    android:id="@+id/home1"-->
+<!--                    android:title="home"-->
+<!--                    android:enabled="true"-->
+<!--                    android:icon="@drawable/ic_baseline_home_24"-->
 
-                    />
-                <item
-                    android:id="@+id/discover1"
-                    android:enabled="true"
-                    android:title="discover"
-                    android:icon="@drawable/ic_navigation"
+<!--                    />-->
+<!--                <item-->
+<!--                    android:id="@+id/discover1"-->
+<!--                    android:enabled="true"-->
+<!--                    android:title="discover"-->
+<!--                    android:icon="@drawable/ic_navigation"-->
 
-                    />
+<!--                    />-->
 
-            </menu>
+<!--            </menu>-->
 
-        </item>
+<!--        </item>-->
 
 
-    <item android:title="Settings">
-        <menu>
-            <item
-                android:id="@+id/home2"
-                android:title="home"
-                android:enabled="true"
-                android:icon="@drawable/ic_baseline_home_24"
+<!--    <item android:title="Settings">-->
+<!--        <menu>-->
+<!--            <item-->
+<!--                android:id="@+id/account"-->
+<!--                android:title="Account"-->
+<!--                android:enabled="true"-->
+<!--                android:icon="@drawable/ic_baseline_account_circle_24"-->
 
-                />
-            <item
-                android:id="@+id/discover2"
-                android:enabled="true"
-                android:title="discover"
-                android:icon="@drawable/ic_navigation"
-                />
-        </menu>
-    </item>
+<!--                />-->
+<!--        </menu>-->
+<!--    </item>-->
     <item
         android:id="@+id/logout"
         android:title="Logout"

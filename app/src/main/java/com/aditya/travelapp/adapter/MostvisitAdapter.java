@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.aditya.travelapp.R;
 import com.aditya.travelapp.models.MostvisitModel;
-import com.aditya.travelapp.models.TrendsModel;
 import com.bumptech.glide.Glide;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
@@ -67,7 +66,7 @@ public class MostvisitAdapter extends RecyclerView.Adapter<MostvisitAdapter.Most
 
         public Mostvisitviewholder(@NonNull View itemView) {
             super(itemView);
-            placeimage=itemView.findViewById(R.id.placeimage);
+            placeimage=itemView.findViewById(R.id.placeimagedetail);
             placename=itemView.findViewById(R.id.placename);
             shimmerFrameLayout=itemView.findViewById(R.id.shimmerlayout);
         }

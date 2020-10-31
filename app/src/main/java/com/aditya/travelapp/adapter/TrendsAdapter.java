@@ -1,7 +1,6 @@
 package com.aditya.travelapp.adapter;
 
 import android.content.Context;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.aditya.travelapp.R;
-import com.aditya.travelapp.models.DiscoverModel;
 import com.aditya.travelapp.models.TrendsModel;
 import com.bumptech.glide.Glide;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -70,7 +68,7 @@ public class TrendsAdapter extends RecyclerView.Adapter<TrendsAdapter.Trendsview
         ShimmerFrameLayout shimmerFrameLayout;
         public Trendsviewholder(@NonNull View itemView) {
             super(itemView);
-            placeimage=itemView.findViewById(R.id.placeimage);
+            placeimage=itemView.findViewById(R.id.placeimagedetail);
             placename=itemView.findViewById(R.id.placename);
             shimmerFrameLayout=itemView.findViewById(R.id.shimmerlayout);
 

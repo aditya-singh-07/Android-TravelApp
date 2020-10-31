@@ -38,11 +38,11 @@
                 android:textSize="15sp"
                 app:layout_constraintBottom_toTopOf="@+id/description"
                 app:layout_constraintEnd_toStartOf="@+id/rating"
-                app:layout_constraintStart_toEndOf="@+id/placeimage"
+                app:layout_constraintStart_toEndOf="@+id/placeimagedetail"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/placeimage"
+                android:id="@+id/placeimagedetail"
                 android:layout_width="177dp"
                 android:layout_height="130dp"
                 android:scaleType="centerCrop"
@@ -64,7 +64,7 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/offer"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/placeimage"
+                app:layout_constraintStart_toEndOf="@+id/placeimagedetail"
                 app:layout_constraintTop_toBottomOf="@+id/placename" />
 
             <TextView
@@ -80,7 +80,7 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/detail"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/placeimage"
+                app:layout_constraintStart_toEndOf="@+id/placeimagedetail"
                 app:layout_constraintTop_toBottomOf="@+id/description" />
 
             <TextView
@@ -112,7 +112,7 @@
                 android:text="7 day &amp;  1 Night | Dinner and lunch | AC Room @799 /day"
                 android:textColor="#2974F6"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/placeimage"
+                app:layout_constraintStart_toEndOf="@+id/placeimagedetail"
                 app:layout_constraintTop_toBottomOf="@+id/offer" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

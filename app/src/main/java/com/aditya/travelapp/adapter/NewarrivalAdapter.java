@@ -49,7 +49,7 @@ public class NewarrivalAdapter extends RecyclerView.Adapter<NewarrivalAdapter.Ne
         private TextView placename;
         public Newarrivalviewholder(@NonNull View itemView) {
             super(itemView);
-            placeimage=itemView.findViewById(R.id.placeimage);
+            placeimage=itemView.findViewById(R.id.placeimagedetail);
             placename=itemView.findViewById(R.id.placename);
 
         }
