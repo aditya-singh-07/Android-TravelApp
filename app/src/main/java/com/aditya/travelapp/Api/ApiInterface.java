@@ -20,6 +20,12 @@ public interface ApiInterface {
             @Query("user_password") String user_pass
 
     );
+    @GET("ajax/api/track_user.php")
+    Call<users> trackuser(
+            @Query("user_id") String user_id
+    );
+
+
     @Headers("Cache-Control: public, max-age=640000, s-maxage=640000 , max-stale=2419200")
     @GET("ajax/api/category.php")
     Call<users> getCategorylist();
@@ -30,6 +36,9 @@ public interface ApiInterface {
     @Headers("Cache-Control: public, max-age=640000, s-maxage=640000 , max-stale=2419200")
     @GET("ajax/api/discover.php")
     Call<users> getDiscovers();
+
+    @GET("ajax/api/track_user.php")
+    Call<users> getGettrack();
 
 
 

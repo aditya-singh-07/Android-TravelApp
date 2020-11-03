@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -26,8 +27,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class Discover_details extends AppCompatActivity implements OnMapReadyCallback {
-    TextView placetitle,placedetailtitle,placetitle1,placelocation,placelocation1,available,category,review,rating;
+public class Discover_details extends AppCompatActivity {
+    TextView placetitle,placedetailtitle,placetitle1,placelocation,placelocation1,available,category,price,review,rating,latitude,longitude,viewdeals;
     ImageView placeimage,backbtn;
     FrameLayout frameLayout;
     private final int MY_PERMISSION= 1;
@@ -52,14 +53,21 @@ public class Discover_details extends AppCompatActivity implements OnMapReadyCal
         category=findViewById(R.id.category);
         review=findViewById(R.id.reviews);
         rating=findViewById(R.id.rating);
+        price=findViewById(R.id.rupee);
+        latitude=findViewById(R.id.placelat);
+        longitude=findViewById(R.id.placelong);
+        viewdeals=findViewById(R.id.viewdeal);
 
         final int id=getIntent().getIntExtra("id",0);
         final String placename=getIntent().getStringExtra("placetitle");
         final String placecat=getIntent().getStringExtra("placecategory");
         final String image=getIntent().getStringExtra("placeimage");
+        final String lat=getIntent().getStringExtra("latitude");
+        final String longitu=getIntent().getStringExtra("longitude");
         final String location=getIntent().getStringExtra("placelocation");
         final String placeavailable=getIntent().getStringExtra("available");
         final String placerating=getIntent().getStringExtra("rating");
+        final String placeprice=getIntent().getStringExtra("price");
 
         placetitle.setText(placename);
         placetitle1.setText(placename);
@@ -67,16 +75,26 @@ public class Discover_details extends AppCompatActivity implements OnMapReadyCal
         Glide.with(getApplicationContext()).load(image).into(placeimage);
         placelocation.setText(location);
         placelocation1.setText(location);
+        latitude.setText(lat);
+        longitude.setText(longitu);
         placedetailtitle.setText(placename);
         available.setText(placeavailable);
         rating.setText(placerating);
-        if(placerating.equals("4.5" )){
+        price.setText(placeprice);
+
+        if(placerating.equals("4.5" ) || placerating.equals("4.6")){
             review.setText("Excellent");
         }else{
             review.setText("Good");
         }
 
-
+        viewdeals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(Discover_details.this,webview.class);
+                startActivity(i);
+            }
+        });
 
         Toast.makeText(this, "placeid" + id, Toast.LENGTH_SHORT).show();
        backbtn.setOnClickListener(new View.OnClickListener() {
@@ -119,10 +137,10 @@ public class Discover_details extends AppCompatActivity implements OnMapReadyCal
 
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        LatLng loc = new LatLng(21, 57);
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(19.075983, 72.877655)).title("Marker"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-    }
+//    @Override
+//    public void onMapReady(GoogleMap googleMap) {
+//        LatLng loc = new LatLng(21, 57);
+//        googleMap.addMarker(new MarkerOptions().position(new LatLng(19.075983, 72.877655)).title("Marker"));
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+//    }
 }

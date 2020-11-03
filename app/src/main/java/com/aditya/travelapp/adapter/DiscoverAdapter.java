@@ -69,9 +69,12 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Discov
                     i.putExtra("placetitle",model.getPlace_name());
                     i.putExtra("placecategory",model.getCat_title());
                     i.putExtra("placeimage",model.getPlace_image());
+                    i.putExtra("latitude",model.getLatitude());
+                    i.putExtra("longitude",model.getLongitude());
                     i.putExtra("placelocation",model.getLocation());
                     i.putExtra("available",model.getAvailable());
                     i.putExtra("rating",model.getRating());
+                    i.putExtra("price",model.getPrice());
                     context.startActivity(i);
                     Animatoo.animateFade(context);
                 }

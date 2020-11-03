@@ -113,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
                         dialog.setVisibility(View.GONE);
                         Toast.makeText(LoginActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
                         Intent i=new Intent(LoginActivity.this,DashBoardActivity.class);
+                        i.putExtra("userid",uid);
                         startActivity(i);
                         Animatoo.animateSlideLeft(LoginActivity.this);
                         finish();

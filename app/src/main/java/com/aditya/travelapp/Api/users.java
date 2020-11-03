@@ -3,6 +3,7 @@ package com.aditya.travelapp.Api;
 import com.aditya.travelapp.models.BannerModel;
 import com.aditya.travelapp.models.CategoryModel;
 import com.aditya.travelapp.models.DiscoverModel;
+import com.aditya.travelapp.models.TrackModel;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -23,6 +24,9 @@ public class users {
     @SerializedName("discover")
     private List<DiscoverModel> discovers;
 
+    @SerializedName("trackuser")
+    private List<TrackModel> gettracks;
+
     public String getResponse() {
         return response;
     }
@@ -41,6 +45,9 @@ public class users {
 
     public List<DiscoverModel> getDiscovers() {
         return discovers;
+    }
+    public List<TrackModel> getGettracks() {
+        return gettracks;
     }
 
     public String getUsername() {

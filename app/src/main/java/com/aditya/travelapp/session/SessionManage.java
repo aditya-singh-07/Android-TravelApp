@@ -29,6 +29,9 @@ public class SessionManage {
     public boolean islogin(){
         return sharedPreferences.getBoolean(LOGIN,false);
     }
+    public String isuser(){
+        return sharedPreferences.getString(USER_ID,"");
+    }
     public HashMap<String, String> getuser(){
         HashMap<String, String> user=new HashMap<String, String>();
         user.put(USER_ID, sharedPreferences.getString(USER_ID,null));

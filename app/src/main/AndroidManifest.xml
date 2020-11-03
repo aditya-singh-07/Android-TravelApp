@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <meta-data
         android:name="com.google.android.maps.v2.API_KEY"
         android:value="AIzaSyA0Dx_boXQiwvdz8sJHoYeZNVTdoWONYkU" />
@@ -18,18 +19,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Tracklogin"></activity>
+        <activity android:name=".webview" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAXhBdyKxUo_cb-EkSgWJQTdqR0QjLcqes" />
-        <activity android:name=".Discover_details">
+            android:value="AIzaSyA0Dx_boXQiwvdz8sJHoYeZNVTdoWONYkU" />
 
-        </activity>
+        <activity android:name=".Discover_details" />
         <activity android:name=".ToggleActivity" />
         <activity
             android:name=".DashBoardActivity"
-            android:configChanges="orientation |screenSize |keyboardHidden">
-
-        </activity>
+            android:configChanges="orientation |screenSize |keyboardHidden" />
         <activity
             android:name=".registerActivity"
             android:theme="@style/logintheme" />
@@ -47,9 +48,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/logintheme">
-
-        </activity>
+            android:theme="@style/logintheme" />
 
         <meta-data
             android:name="preloaded_fonts"
