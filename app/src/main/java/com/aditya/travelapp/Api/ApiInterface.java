@@ -24,6 +24,13 @@ public interface ApiInterface {
     Call<users> trackuser(
             @Query("user_id") String user_id
     );
+    @GET("ajax/api/update_user.php")
+    Call<users> updateuser(
+            @Query("user_id") String user_id,
+            @Query("user_name") String user_name,
+            @Query("user_email") String user_email
+
+    );
 
 
     @Headers("Cache-Control: public, max-age=640000, s-maxage=640000 , max-stale=2419200")
@@ -39,6 +46,20 @@ public interface ApiInterface {
 
     @GET("ajax/api/track_user.php")
     Call<users> getGettrack();
+
+    @Headers("Cache-Control: public, max-age=640000, s-maxage=640000 , max-stale=2419200")
+    @GET("ajax/api/trends.php")
+    Call<users> getTrends() ;
+
+    @Headers("Cache-Control: public, max-age=640000, s-maxage=640000 , max-stale=2419200")
+    @GET("ajax/api/mostvisit.php")
+    Call<users> getMostvisit();
+
+    @Headers("Cache-Control: public, max-age=640000, s-maxage=640000 , max-stale=2419200")
+    @GET("ajax/api/newarrival.php")
+    Call<users> getNewarrival();
+
+
 
 
 

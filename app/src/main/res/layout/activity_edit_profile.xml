@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/arrow"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/Backlogin"
+        android:layout_width="60dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="306dp"
+        android:gravity="center"
+        android:letterSpacing="0.1"
+        android:onClick="gohome"
+        android:text="Back"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="140dp"
+        app:cardCornerRadius="80dp"
+        app:cardElevation="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/image3" />
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/btnupdate"
+        android:layout_width="301dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="66dp"
+        android:background="@drawable/btn_material"
+        android:elevation="2dp"
+        android:gravity="center"
+        android:letterSpacing="0.1"
+        android:padding="16dp"
+        android:shadowDy="1"
+        android:text="Update"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/updateusername" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/updateusername"
+        android:layout_width="294dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="56dp"
+        android:background="@drawable/input_field"
+        android:drawableLeft="@drawable/ic_baseline_account_circle_24"
+        android:drawablePadding="8dp"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/btnregister"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/updateemail" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/updateemail"
+        android:layout_width="294dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/input_field"
+        android:drawableLeft="@drawable/ic_baseline_email_24"
+        android:drawablePadding="8dp"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/loginpass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+
+
+    <ImageView
+        android:id="@+id/loader"
+        android:layout_width="82dp"
+        android:layout_height="53dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnlogin"
+        app:layout_constraintVertical_bias="0.336"
+        app:srcCompat="@drawable/loader" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

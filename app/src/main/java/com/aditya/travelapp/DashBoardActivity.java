@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -68,6 +69,7 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
         ////////////////Session management instance created////////////////
 
         // setSupportActionBar(toolbar);
+
         /////////////////- Actionbar set listener -///////////////////
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -189,10 +191,28 @@ public class DashBoardActivity extends AppCompatActivity implements NavigationVi
     ////////////// toolbar menu //////////////////////////////////
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.toolbar_search_menu, menu);
+        getMenuInflater().inflate(R.menu.toolbar_search_menu,menu);
         return true;
     }
+
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        switch (item.getItemId()){
+//            case R.id.accounts:
+//                Toast toast=Toast.makeText(DashBoardActivity.this, "Account selected", Toast.LENGTH_SHORT);
+//                toast.setGravity(Gravity.CENTER,0,0);
+//                toast.show();
+//                break;
+//            case R.id.item2:
+//                Toast.makeText(DashBoardActivity.this, "Settings", Toast.LENGTH_SHORT).show();
+//                break;
+//            default:
+//                break;
+//
+//        }
+//
+//        return true;
+//    }
     ////////////// toolbar menu //////////////////////////////////
 
 

@@ -17,6 +17,7 @@ import com.aditya.travelapp.Api.ApiClient;
 import com.aditya.travelapp.Api.ApiInterface;
 import com.aditya.travelapp.Api.users;
 import com.aditya.travelapp.DashBoardActivity;
+import com.aditya.travelapp.EditProfile;
 import com.aditya.travelapp.MainActivity;
 import com.aditya.travelapp.R;
 import com.aditya.travelapp.Tracklogin;
@@ -33,7 +34,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Settings extends Fragment {
-    TextView email,track;
+    TextView email,track,username,editprofile;
     SessionManage sessionManage;
     public Settings() {
         // Required empty public constructor
@@ -57,13 +58,28 @@ public class Settings extends Fragment {
         View view= inflater.inflate(R.layout.fragment_settings, container, false);
         email=view.findViewById(R.id.setting_email);
         track=view.findViewById(R.id.tracklogin);
+        username=view.findViewById(R.id.setting_username);
+        editprofile=view.findViewById(R.id.editprofile);
         String user=sessionManage.isuser();
-
+        String uname=sessionManage.isusername();
+        String uemail=sessionManage.isemail();
+        username.setText(uname);
+        email.setText(uemail);
         track.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(getContext(), Tracklogin.class);
                 startActivity(i);
+            }
+        });
+        editprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(getContext(), EditProfile.class);
+                i.putExtra("username",uname);
+                i.putExtra("email",uemail);
+                startActivity(i);
+                Animatoo.animateSlideLeft(getContext());
             }
         });
 

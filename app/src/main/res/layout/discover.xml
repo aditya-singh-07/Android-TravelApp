@@ -23,7 +23,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
-
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerlayout"
+            app:shimmer_shape="linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="139dp"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/image1" />
+                android:background="@drawable/shimmering" />
 
         </LinearLayout>
 
@@ -49,9 +53,10 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="156dp"
                 android:layout_marginBottom="20dp"
-                android:text="Washington dc, Island"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                android:background="@drawable/shimmering"
                 app:layout_constraintBottom_toTopOf="@+id/imageView6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.125"
@@ -65,7 +70,7 @@
                 android:layout_marginTop="156dp"
                 android:background="#66BB6A"
                 android:gravity="center"
-                android:text="4.6"
+                android:text=""
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +96,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginEnd="31dp"
-                android:text="Hydrabad, 284 km from hingoli"
+                android:background="@drawable/shimmering"
+                android:text=""
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView6"
@@ -114,7 +120,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="71dp"
-                android:text="6 Nov - 8 Nov, Fri - Sun"
+                android:background="@drawable/shimmering"
+                android:text=""
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView7"
                 app:layout_constraintTop_toBottomOf="@+id/place_detail_location" />
@@ -139,7 +146,8 @@
                 android:layout_marginEnd="31dp"
                 android:layout_marginBottom="8dp"
                 android:orientation="vertical"
-                android:text="60% OFF Book now"
+                android:text=""
+                android:background="@drawable/shimmering"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/place_detail_available" />
@@ -151,7 +159,8 @@
                 android:layout_marginTop="21dp"
                 android:layout_marginEnd="205dp"
                 android:layout_marginBottom="1dp"
-                android:text="2000"
+                android:text=""
+                android:background="@drawable/shimmering"
                 android:textColor="#66BB6A"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -196,6 +205,7 @@
                 android:layout_marginBottom="7dp"
                 android:text="Adventure"
                 android:textSize="10sp"
+                android:background="@drawable/shimmering"
                 app:layout_constraintBottom_toTopOf="@+id/place_detail_location"
                 app:layout_constraintEnd_toStartOf="@+id/textView14"
                 app:layout_constraintStart_toEndOf="@+id/categorytext"
@@ -214,13 +224,14 @@
                 android:text="category"
                 android:textColor="#FFFFFF"
                 android:textSize="8sp"
+
                 app:layout_constraintBottom_toTopOf="@+id/imageView6"
                 app:layout_constraintEnd_toStartOf="@+id/category"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/placename" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </com.facebook.shimmer.ShimmerFrameLayout>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

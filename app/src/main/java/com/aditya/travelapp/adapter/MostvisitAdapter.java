@@ -43,9 +43,9 @@ public class MostvisitAdapter extends RecyclerView.Adapter<MostvisitAdapter.Most
             holder.shimmerFrameLayout.setShimmer(null);
             MostvisitModel mostvisitModel=mostvisitModelList.get(position);
             holder.placename.setBackground(null);
-            holder.placename.setText(mostvisitModel.getPlacename());
+            holder.placename.setText(mostvisitModel.getPlace_name());
             holder.placeimage.setBackground(null);
-            Glide.with(context).load(mostvisitModel.getPlaceimage()).into(holder.placeimage);
+            Glide.with(context).load(mostvisitModel.getPlace_image()).into(holder.placeimage);
 
         }
 
@@ -56,6 +56,7 @@ public class MostvisitAdapter extends RecyclerView.Adapter<MostvisitAdapter.Most
     @Override
     public int getItemCount() {
         int shimmercount=8;
+//        return mostvisitModelList.size();
         return shimmer? shimmercount:mostvisitModelList.size();
     }
 

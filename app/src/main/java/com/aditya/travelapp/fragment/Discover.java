@@ -42,14 +42,13 @@ public class Discover extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         apiInterface= ApiClient.getApiClient().create(ApiInterface.class);
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                loaddata();
-//                discoverAdapter.shimmer=false;
-//                discoverAdapter.notifyDataSetChanged();
-//            }
-//        },800);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loaddata();
+                discoverAdapter.notifyDataSetChanged();
+            }
+        },800);
 
     }
 
@@ -63,6 +62,7 @@ public class Discover extends Fragment {
                 discoverAdapter=new DiscoverAdapter(discoverlist,getContext());
                 discoverrecycler.setAdapter(discoverAdapter);
                 discoverAdapter.notifyDataSetChanged();
+                discoverAdapter.shimmer=false;
             }
 
             @Override
@@ -92,7 +92,8 @@ public class Discover extends Fragment {
         discoverrecycler.setLayoutManager(manager);
         discoverrecycler.setHasFixedSize(true);
         discoverlist=new ArrayList<DiscoverModel>();
-        loaddata();
+        discoverAdapter=new DiscoverAdapter(discoverlist,getContext());
+        discoverrecycler.setAdapter(discoverAdapter);
 
 
 

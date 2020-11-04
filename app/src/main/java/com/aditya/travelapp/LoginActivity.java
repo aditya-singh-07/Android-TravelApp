@@ -109,7 +109,8 @@ public class LoginActivity extends AppCompatActivity {
                         btnlogin.setEnabled(true);
                         String uid=response.body().getUserid();
                         String uname=response.body().getUsername();
-                        sessionManage.createsession(uid);
+                        String uemail=response.body().getEmail();
+                        sessionManage.createsession(uid,uname,uemail);
                         dialog.setVisibility(View.GONE);
                         Toast.makeText(LoginActivity.this, "Registration success", Toast.LENGTH_SHORT).show();
                         Intent i=new Intent(LoginActivity.this,DashBoardActivity.class);

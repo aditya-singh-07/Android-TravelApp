@@ -9,7 +9,7 @@
 
     <meta-data
         android:name="com.google.android.maps.v2.API_KEY"
-        android:value="AIzaSyA0Dx_boXQiwvdz8sJHoYeZNVTdoWONYkU" />
+        android:value="AIzaSyBDcTHBEmWQp_Ze2Y4yJtZCU-b6qDKfQL0" />
 
     <application
         android:allowBackup="true"
@@ -19,12 +19,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Tracklogin"></activity>
+        <activity android:name=".EditProfile"></activity>
+        <activity android:name=".Tracklogin" />
         <activity android:name=".webview" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyA0Dx_boXQiwvdz8sJHoYeZNVTdoWONYkU" />
+            android:value="AIzaSyBDcTHBEmWQp_Ze2Y4yJtZCU-b6qDKfQL0" />
 
         <activity android:name=".Discover_details" />
         <activity android:name=".ToggleActivity" />

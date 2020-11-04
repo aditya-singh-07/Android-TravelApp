@@ -14,12 +14,14 @@ import com.aditya.travelapp.models.BannerModel;
 import com.aditya.travelapp.models.CategoryModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.List;
 
 public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.Bannerviewholder> {
     private List<BannerModel> bannerlist;
     private Context context;
+    public boolean shimmer=true;
 
     public BannerAdapter(List<BannerModel> bannerlist, Context context) {
         this.bannerlist = bannerlist;
@@ -35,20 +37,30 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.Bannerview
 
     @Override
     public void onBindViewHolder(@NonNull BannerAdapter.Bannerviewholder holder, int position) {
-        BannerModel model=bannerlist.get(position);
-        Glide.with(context).load(model.getBanner_image()).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).skipMemoryCache(false).placeholder(R.drawable.travel_black).into(holder.banner_image);
+        if(shimmer){
+            holder.shimmerFrameLayout.startShimmer();
+        }else {
+            holder.shimmerFrameLayout.stopShimmer();
+            holder.shimmerFrameLayout.setShimmer(null);
+            BannerModel model = bannerlist.get(position);
+            holder.banner_image.setBackground(null);
+            Glide.with(context).load(model.getBanner_image()).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).skipMemoryCache(false).placeholder(R.drawable.travel_black).into(holder.banner_image);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return bannerlist.size();
+        int shimmercount=4;
+        return shimmer?shimmercount:bannerlist.size();
     }
 
     public class Bannerviewholder extends RecyclerView.ViewHolder {
         private ImageView banner_image;
+        ShimmerFrameLayout shimmerFrameLayout;
         public Bannerviewholder(@NonNull View itemView) {
             super(itemView);
             banner_image=itemView.findViewById(R.id.banner);
+            shimmerFrameLayout=itemView.findViewById(R.id.shimmerlayout1);
         }
     }
 }

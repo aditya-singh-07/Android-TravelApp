@@ -1,30 +1,28 @@
 package com.aditya.travelapp.models;
 
 public class TrendsModel {
-    private int placeimage;
-    private String placename;
-
+    private String  place_name,place_image;
     public TrendsModel() {
     }
 
-    public TrendsModel(int placeimage, String placename) {
-        this.placeimage = placeimage;
-        this.placename = placename;
+    public TrendsModel(String place_name, String place_image) {
+        this.place_name = place_name;
+        this.place_image = place_image;
     }
 
-    public int getPlaceimage() {
-        return placeimage;
+    public String getPlace_name() {
+        return place_name;
     }
 
-    public void setPlaceimage(int placeimage) {
-        this.placeimage = placeimage;
+    public void setPlace_name(String place_name) {
+        this.place_name = place_name;
     }
 
-    public String getPlacename() {
-        return placename;
+    public String getPlace_image() {
+        return place_image;
     }
 
-    public void setPlacename(String placename) {
-        this.placename = placename;
+    public void setPlace_image(String place_image) {
+        this.place_image = place_image;
     }
 }

@@ -20,14 +20,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerlayout1"
+            app:shimmer_shape="linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
         <ImageView
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="277dp"
             android:elevation="4dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/travel_black" />
+            android:background="@drawable/shimmering"/>
+        </com.facebook.shimmer.ShimmerFrameLayout>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

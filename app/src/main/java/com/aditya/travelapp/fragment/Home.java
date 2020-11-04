@@ -21,6 +21,7 @@ import com.aditya.travelapp.MainActivity;
 import com.aditya.travelapp.R;
 import com.aditya.travelapp.adapter.BannerAdapter;
 import com.aditya.travelapp.adapter.CategoryAdapter;
+import com.aditya.travelapp.adapter.DiscoverAdapter;
 import com.aditya.travelapp.adapter.MostvisitAdapter;
 import com.aditya.travelapp.adapter.NewarrivalAdapter;
 import com.aditya.travelapp.adapter.TrendsAdapter;
@@ -72,10 +73,17 @@ public class Home extends Fragment {
             @Override
             public void run() {
                 loaddata();
-                trendsAdapter.shimmer=false;
+                loadbanner();
+                loadcategory();
+                loadmostvisit();
+                loadnewarrival();
                 trendsAdapter.notifyDataSetChanged();
-                mostvisitAdapter.shimmer=false;
+                bannerAdapter.notifyDataSetChanged();
+                categoryAdapter.notifyDataSetChanged();
                 mostvisitAdapter.notifyDataSetChanged();
+                newarrivalAdapter.notifyDataSetChanged();
+//                mostvisitAdapter.shimmer=false;
+
             }
         },500);
 
@@ -113,21 +121,59 @@ public class Home extends Fragment {
         recyclerviewnewarrival.setHasFixedSize(true);
 
         newarrivalList=new ArrayList<>();
-        newarrivalList.add(new NewarrivalModel(R.drawable.image1,"Yosemite"));
-        newarrivalList.add(new NewarrivalModel(R.drawable.image1,"Montana"));
-        newarrivalList.add(new NewarrivalModel(R.drawable.image4,"Grand Canyon"));
-        newarrivalList.add(new NewarrivalModel(R.drawable.image2,"New Orleans"));
-        newarrivalList.add(new NewarrivalModel(R.drawable.image3,"Laguna Califonia"));
+//        newarrivalList.add(new NewarrivalModel(R.drawable.image1,"Yosemite"));
+//        newarrivalList.add(new NewarrivalModel(R.drawable.image1,"Montana"));
+//        newarrivalList.add(new NewarrivalModel(R.drawable.image4,"Grand Canyon"));
+//        newarrivalList.add(new NewarrivalModel(R.drawable.image2,"New Orleans"));
+//        newarrivalList.add(new NewarrivalModel(R.drawable.image3,"Laguna Califonia"));
         newarrivalAdapter=new NewarrivalAdapter(newarrivalList,getContext());
         recyclerviewnewarrival.setAdapter(newarrivalAdapter);
-        newarrivalAdapter.notifyDataSetChanged();
     }
+
+    void loadnewarrival(){
+        Call<users> newarrival=apiInterface.getNewarrival();
+        newarrival.enqueue(new Callback<users>() {
+            @Override
+            public void onResponse(Call<users> call, Response<users> response) {
+                newarrivalList=response.body().getNewarrival();
+                newarrivalAdapter=new NewarrivalAdapter(newarrivalList,getContext());
+                recyclerviewnewarrival.setAdapter(newarrivalAdapter);
+                newarrivalAdapter.notifyDataSetChanged();
+                newarrivalAdapter.shimmer=false;
+
+            }
+
+            @Override
+            public void onFailure(Call<users> call, Throwable t) {
+
+            }
+        });
+    }
+
    void loaddata(){
-       trendslist.add(new TrendsModel(R.drawable.image1,"Montana"));
-       trendslist.add(new TrendsModel(R.drawable.image2,"New Orleans"));
-       trendslist.add(new TrendsModel(R.drawable.image3,"Laguna Califonia"));
-       trendslist.add(new TrendsModel(R.drawable.image4,"Grand Canyon"));
-       trendslist.add(new TrendsModel(R.drawable.image1,"Yosemite"));
+           Call<users> Trendcall=apiInterface.getTrends();
+       Trendcall.enqueue(new Callback<users>() {
+               @Override
+               public void onResponse(Call<users> call, Response<users> response) {
+//                   Log.i("response", String.valueOf(response.isSuccessful()));
+                   trendslist=response.body().getTrends();
+                   trendsAdapter=new TrendsAdapter(trendslist,getContext());
+                   recycviewtrends.setAdapter(trendsAdapter);
+                   trendsAdapter.shimmer=false;
+
+               }
+
+               @Override
+               public void onFailure(Call<users> call, Throwable t) {
+
+               }
+           });
+//
+//       trendslist.add(new TrendsModel(R.drawable.image1,"Montana"));
+//       trendslist.add(new TrendsModel(R.drawable.image2,"New Orleans"));
+//       trendslist.add(new TrendsModel(R.drawable.image3,"Laguna Califonia"));
+//       trendslist.add(new TrendsModel(R.drawable.image4,"Grand Canyon"));
+//       trendslist.add(new TrendsModel(R.drawable.image1,"Yosemite"));
     }
 
     private void mostviewinit() {
@@ -135,18 +181,42 @@ public class Home extends Fragment {
         manager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerviewmostvisit.setLayoutManager(manager);
         recyclerviewmostvisit.setHasFixedSize(true);
+        mostvisitList=new ArrayList<MostvisitModel>();
 
-        mostvisitList=new ArrayList<>();
-        mostvisitList.add(new MostvisitModel(R.drawable.image1,"Yosemite"));
-        mostvisitList.add(new MostvisitModel(R.drawable.image1,"Montana"));
-        mostvisitList.add(new MostvisitModel(R.drawable.image4,"Grand Canyon"));
-        mostvisitList.add(new MostvisitModel(R.drawable.image2,"New Orleans"));
-        mostvisitList.add(new MostvisitModel(R.drawable.image3,"Laguna Califonia"));
         mostvisitAdapter=new MostvisitAdapter(mostvisitList,getContext());
         recyclerviewmostvisit.setAdapter(mostvisitAdapter);
-        mostvisitAdapter.notifyDataSetChanged();
+//        mostvisitList=new ArrayList<>();
+//        mostvisitList.add(new MostvisitModel(R.drawable.image1,"Yosemite"));
+//        mostvisitList.add(new MostvisitModel(R.drawable.image1,"Montana"));
+//        mostvisitList.add(new MostvisitModel(R.drawable.image4,"Grand Canyon"));
+//        mostvisitList.add(new MostvisitModel(R.drawable.image2,"New Orleans"));
+//        mostvisitList.add(new MostvisitModel(R.drawable.image3,"Laguna Califonia"));
+//        mostvisitAdapter=new MostvisitAdapter(mostvisitList,getContext());
+//        recyclerviewmostvisit.setAdapter(mostvisitAdapter);
+//        mostvisitAdapter.notifyDataSetChanged();
 
     }
+   void loadmostvisit(){
+       Call<users> mostvisitcall=apiInterface.getMostvisit();
+       mostvisitcall.enqueue(new Callback<users>() {
+           @Override
+           public void onResponse(Call<users> call, Response<users> response) {
+//                   Log.i("response", String.valueOf(response.isSuccessful()));
+               mostvisitList=response.body().getMostvisit();
+               Log.i("response visit", String.valueOf(response.isSuccessful()));
+               mostvisitAdapter=new MostvisitAdapter(mostvisitList,getContext());
+               recyclerviewmostvisit.setAdapter(mostvisitAdapter);
+               mostvisitAdapter.notifyDataSetChanged();
+               mostvisitAdapter.shimmer=false;
+           }
+
+           @Override
+           public void onFailure(Call<users> call, Throwable t) {
+
+           }
+       });
+
+   }
 
     /////////////////// set trends recyclerview /////////////////////////
     private void trendsinit() {
@@ -171,7 +241,10 @@ public class Home extends Fragment {
         recyclerViewbanner.setHasFixedSize(true);
 
         bannerlist=new ArrayList<>();
-        loadbanner();
+
+        bannerAdapter=new BannerAdapter(bannerlist,getContext());
+        recyclerViewbanner.setAdapter(bannerAdapter);
+
 
 
 //        bannerlist.add(new BannerModel(R.drawable.image1));
@@ -194,6 +267,7 @@ public class Home extends Fragment {
                 bannerAdapter=new BannerAdapter(bannerlist,getContext());
                 recyclerViewbanner.setAdapter(bannerAdapter);
                 bannerAdapter.notifyDataSetChanged();
+                bannerAdapter.shimmer=false;
             }
 
             @Override
@@ -212,27 +286,9 @@ public class Home extends Fragment {
         manager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
-        if(checknetwork.getConnectivityStatusString(getContext())){
-            categorylist=new ArrayList<CategoryModel>();
-            Call<users> catcall=apiInterface.getCategorylist();
-            catcall.enqueue(new Callback<users>() {
-                @Override
-                public void onResponse(Call<users> call, Response<users> response) {
-                    categorylist=response.body().getCategories();
-                    categoryAdapter=new CategoryAdapter(categorylist,getContext());
-                    recyclerView.setAdapter(categoryAdapter);
-                    categoryAdapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onFailure(Call<users> call, Throwable t) {
-
-                }
-            });
-        }else{
-            Toast.makeText(getContext(), "No Internet", Toast.LENGTH_SHORT).show();
-        }
-
+        categorylist=new ArrayList<CategoryModel>();
+        categoryAdapter=new CategoryAdapter(categorylist,getContext());
+        recyclerView.setAdapter(categoryAdapter);
 
 //        categorylist.add(new CategoryModel(R.drawable.travel_black,"Adventure travel"));
 //        categorylist.add(new CategoryModel(R.drawable.travel_black,"Birth tourism"));
@@ -245,6 +301,27 @@ public class Home extends Fragment {
 //        categoryAdapter=new CategoryAdapter(categorylist,getContext());
 //        recyclerView.setAdapter(categoryAdapter);
 //        categoryAdapter.notifyDataSetChanged();
+    }
+   void loadcategory(){
+            categorylist=new ArrayList<CategoryModel>();
+            Call<users> catcall=apiInterface.getCategorylist();
+            catcall.enqueue(new Callback<users>() {
+                @Override
+                public void onResponse(Call<users> call, Response<users> response) {
+                    categorylist=response.body().getCategories();
+                    categoryAdapter=new CategoryAdapter(categorylist,getContext());
+                    recyclerView.setAdapter(categoryAdapter);
+                    categoryAdapter.notifyDataSetChanged();
+                    categoryAdapter.shimmer=false;
+                }
+
+                @Override
+                public void onFailure(Call<users> call, Throwable t) {
+
+                }
+            });
+
+
     }
 
     /////////////////// Category recyclerview /////////////////////////

@@ -26,7 +26,7 @@ import java.util.List;
 public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Discoverviewholder> {
     private List<DiscoverModel> discoverlist;
     private Context context;
-//     public boolean shimmer=true;
+     public boolean shimmer=true;
 
     public DiscoverAdapter(List<DiscoverModel> discoverlist, Context context) {
         this.discoverlist = discoverlist;
@@ -42,43 +42,48 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Discov
 
     @Override
     public void onBindViewHolder(@NonNull DiscoverAdapter.Discoverviewholder holder, int position) {
-            DiscoverModel model=discoverlist.get(position);
-
-            holder.placename.setText(model.getPlace_name());
-
-            Glide.with(context).load(model.getPlace_image()).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                .skipMemoryCache(false).placeholder(R.drawable.travel_black).into(holder.placeimg);
-
-            holder.location.setText(model.getLocation());
-
-            holder.available.setText(model.getAvailable());
-
-            holder.offer.setText(model.getOffer());
-
-            holder.rating.setText(model.getRating());
-
-            holder.price.setText(model.getPrice());
-
-            holder.category.setText(model.getCat_title());
-            holder.cardview.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(context, "clicked" + getItemId(position), Toast.LENGTH_SHORT).show();
-                    Intent i=new Intent(context, Discover_details.class);
-                    i.putExtra("id",model.getPlace_id());
-                    i.putExtra("placetitle",model.getPlace_name());
-                    i.putExtra("placecategory",model.getCat_title());
-                    i.putExtra("placeimage",model.getPlace_image());
-                    i.putExtra("latitude",model.getLatitude());
-                    i.putExtra("longitude",model.getLongitude());
-                    i.putExtra("placelocation",model.getLocation());
-                    i.putExtra("available",model.getAvailable());
-                    i.putExtra("rating",model.getRating());
-                    i.putExtra("price",model.getPrice());
-                    context.startActivity(i);
-                    Animatoo.animateFade(context);
-                }
-            });
+                if(shimmer){
+            holder.shimmerFrameLayout.startShimmer();
+        }else {
+                    holder.shimmerFrameLayout.stopShimmer();
+                    holder.shimmerFrameLayout.setShimmer(null);
+                    DiscoverModel model = discoverlist.get(position);
+                    holder.placename.setBackground(null);
+                    holder.placename.setText(model.getPlace_name());
+                    holder.placeimg.setBackground(null);
+                    Glide.with(context).load(model.getPlace_image()).diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                            .skipMemoryCache(false).placeholder(R.drawable.travel_black).into(holder.placeimg);
+                    holder.location.setBackground(null);
+                    holder.location.setText(model.getLocation());
+                    holder.available.setBackground(null);
+                    holder.available.setText(model.getAvailable());
+                    holder.offer.setBackground(null);
+                    holder.offer.setText(model.getOffer());
+                    holder.rating.setBackground(null);
+                    holder.rating.setText(model.getRating());
+                    holder.price.setBackground(null);
+                    holder.price.setText(model.getPrice());
+                    holder.category.setBackground(null);
+                    holder.category.setText(model.getCat_title());
+                    holder.cardview.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(context, "clicked" + getItemId(position), Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(context, Discover_details.class);
+                            i.putExtra("id", model.getPlace_id());
+                            i.putExtra("placetitle", model.getPlace_name());
+                            i.putExtra("placecategory", model.getCat_title());
+                            i.putExtra("placeimage", model.getPlace_image());
+                            i.putExtra("latitude", model.getLatitude());
+                            i.putExtra("longitude", model.getLongitude());
+                            i.putExtra("placelocation", model.getLocation());
+                            i.putExtra("available", model.getAvailable());
+                            i.putExtra("rating", model.getRating());
+                            i.putExtra("price", model.getPrice());
+                            context.startActivity(i);
+                            Animatoo.animateFade(context);
+                        }
+                    }); }
 //        if(shimmer){
 //            holder.shimmerFrameLayout.startShimmer();
 //        }else{
@@ -110,7 +115,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Discov
     @Override
     public int getItemCount() {
         int shimmercount=5;
-        return discoverlist.size();
+        return shimmer? shimmercount:discoverlist.size();
     }
 
     public class Discoverviewholder extends RecyclerView.ViewHolder {
@@ -129,7 +134,7 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.Discov
             rating=itemView.findViewById(R.id.rating);
             price=itemView.findViewById(R.id.price);
             category=itemView.findViewById(R.id.category);
-
+            shimmerFrameLayout=itemView.findViewById(R.id.shimmerlayout);
 
         }
     }

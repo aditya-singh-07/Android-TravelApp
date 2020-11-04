@@ -3,7 +3,10 @@ package com.aditya.travelapp.Api;
 import com.aditya.travelapp.models.BannerModel;
 import com.aditya.travelapp.models.CategoryModel;
 import com.aditya.travelapp.models.DiscoverModel;
+import com.aditya.travelapp.models.MostvisitModel;
+import com.aditya.travelapp.models.NewarrivalModel;
 import com.aditya.travelapp.models.TrackModel;
+import com.aditya.travelapp.models.TrendsModel;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -11,7 +14,8 @@ import java.util.List;
 public class users {
     @SerializedName("username")
     private String username;
-
+    @SerializedName("email")
+    private String email;
     @SerializedName("response")
     private String response;
     @SerializedName("userid")
@@ -27,12 +31,55 @@ public class users {
     @SerializedName("trackuser")
     private List<TrackModel> gettracks;
 
-    public String getResponse() {
-        return response;
+    @SerializedName("updateuser_id")
+    private String updateuserid;
+
+    @SerializedName("updateusername")
+    private String updateusername;
+
+    @SerializedName("updateemail")
+    private String updateemail;
+
+    @SerializedName("trends")
+    private List<TrendsModel> trends;
+
+    @SerializedName("mostvisit")
+    private List<MostvisitModel> mostvisit;
+
+    @SerializedName("newarrival")
+    private List<NewarrivalModel> newarrival;
+
+    public List<NewarrivalModel> getNewarrival() {
+        return newarrival;
+    }
+
+    public List<MostvisitModel> getMostvisit() {
+        return mostvisit;
+    }
+
+    public List<TrendsModel> getTrends() {
+        return trends;
     }
 
     public String getUserid() {
         return userid;
+    }
+
+    public String getUpdateuserid() {
+        return updateuserid;
+    }
+
+
+    public String getUpdateusername() {
+        return updateusername;
+    }
+
+    public String getUpdateemail() {
+        return updateemail;
+    }
+
+    public String getResponse() {
+        return response;
     }
 
     public List<CategoryModel> getCategories() {
@@ -52,6 +99,10 @@ public class users {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getEmail() {
+        return email;
     }
     //    @SerializedName("username")
 //    private String username;

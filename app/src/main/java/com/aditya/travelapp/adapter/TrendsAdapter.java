@@ -45,9 +45,9 @@ public class TrendsAdapter extends RecyclerView.Adapter<TrendsAdapter.Trendsview
                 holder.shimmerFrameLayout.setShimmer(null);
                 TrendsModel trendmodel=trendslist.get(position);
                 holder.placename.setBackground(null);
-                holder.placename.setText(trendmodel.getPlacename());
+                holder.placename.setText(trendmodel.getPlace_name());
                 holder.placeimage.setBackground(null);
-                Glide.with(context).load(trendmodel.getPlaceimage()).into(holder.placeimage);
+                Glide.with(context).load(trendmodel.getPlace_image()).into(holder.placeimage);
 
 
             }

@@ -17,7 +17,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerlayout"
+            app:shimmer_shape="linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -26,25 +30,25 @@
                 android:id="@+id/categoryimage"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/category_img_shape"
+                android:background="@drawable/shimmering"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/travel_black" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/categorytext"
                 android:layout_width="50dp"
                 android:layout_height="12dp"
                 android:gravity="center"
-                android:text="TextView"
+                android:text=""
                 android:textSize="8sp"
+                android:background="@drawable/shimmering"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/categoryimage" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
+        </com.facebook.shimmer.ShimmerFrameLayout>
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
