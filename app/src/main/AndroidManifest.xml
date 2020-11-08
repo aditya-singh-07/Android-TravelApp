@@ -19,28 +19,38 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".EditProfile"></activity>
-        <activity android:name=".Tracklogin" />
-        <activity android:name=".webview" />
+        <activity android:name=".EditProfile"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity android:name=".Tracklogin"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".webview"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBDcTHBEmWQp_Ze2Y4yJtZCU-b6qDKfQL0" />
 
-        <activity android:name=".Discover_details" />
+        <activity android:name=".Discover_details"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ToggleActivity" />
         <activity
             android:name=".DashBoardActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation |screenSize |keyboardHidden" />
         <activity
             android:name=".registerActivity"
-            android:theme="@style/logintheme" />
+            android:theme="@style/logintheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/logintheme" />
+            android:theme="@style/logintheme"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/splash">
+            android:theme="@style/splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,7 +59,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/logintheme" />
+            android:theme="@style/logintheme"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -14,12 +14,12 @@
         android:icon="@drawable/ic_navigation"
 
         />
-    <item
-        android:id="@+id/feeds"
-        android:enabled="true"
-        android:title="feeds"
-        android:icon="@drawable/ic_rss_feeds_symbol_in_a_rounded_square"
-        />
+<!--    <item-->
+<!--        android:id="@+id/feeds"-->
+<!--        android:enabled="true"-->
+<!--        android:title="feeds"-->
+<!--        android:icon="@drawable/ic_rss_feeds_symbol_in_a_rounded_square"-->
+<!--        />-->
     <item
         android:id="@+id/settings"
         android:enabled="true"

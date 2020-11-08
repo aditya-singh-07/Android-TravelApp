@@ -89,9 +89,11 @@ public class LoginActivity extends AppCompatActivity {
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             Lemail.setError("Invalid Email");
             Lemail.setFocusable(true);
+            btnlogin.setEnabled(false);
         }else if(Lpass.length() <= 6){
             Lpass.setError("Password length should greater than 7");
             Lpass.setFocusable(true);
+            btnlogin.setEnabled(false);
         }else {
 //                    userlogin(email,pass);
             /////////////// Custom loader //////////////////////
@@ -123,10 +125,12 @@ public class LoginActivity extends AppCompatActivity {
                     }else if(response.body().getResponse().equals("No Account register")){
                         Toast.makeText(LoginActivity.this, "No Account register", Toast.LENGTH_SHORT).show();
                         dialog.setVisibility(View.GONE);
+                        btnlogin.setEnabled(false);
 //                        progressDialog.dismiss();
                     }else{
                         Toast.makeText(LoginActivity.this, "Please try again..", Toast.LENGTH_SHORT).show();
                         dialog.setVisibility(View.GONE);
+                        btnlogin.setEnabled(false);
 //                        progressDialog.dismiss();
                     }
                 }

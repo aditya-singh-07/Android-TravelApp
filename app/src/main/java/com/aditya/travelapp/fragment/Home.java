@@ -58,6 +58,8 @@ public class Home extends Fragment {
     private SessionManage sessionManage;
     private Checknetwork checknetwork;
     public boolean shimmer=false;
+    private int someStateValue;
+    private final String SOME_VALUE_KEY = "someValueToSave";
     ///////// Api interface object ////////////////
     public static ApiInterface apiInterface;
     ///////// Api interface object ////////////////
@@ -85,7 +87,7 @@ public class Home extends Fragment {
 //                mostvisitAdapter.shimmer=false;
 
             }
-        },500);
+        },100);
 
         category.getinstance(getContext());
 
